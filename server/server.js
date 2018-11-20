@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // require db//
-// const db = require('./models/index');
+const db = require('./models/index');
 // const Post = db.Post;
 
 //====================================================
