@@ -4,7 +4,7 @@ const port = process.env.PORT || 4000;
 
 // require db//
 const db = require('./models/index');
-// const Post = db.Post;
+const User = db.User;
 
 //====================================================
 ///////MIDDLE-WARE////////////////////////////////////
@@ -13,14 +13,14 @@ const db = require('./models/index');
 //Require use of Express CORS middle ware//
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-//Require Express Body Parser middle ware//
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
+  // Express Body Parser Middleware
+  app.use(express.urlencoded({extended: false}));
+  app.use(express.json());
 
 
 //====================================================
@@ -28,20 +28,20 @@ app.use(express.json());
 //====================================================
 
 //Users//
-// const userRouter = require('./config/api/users/routes');
+const userRouter = require('./config/api/users/routes');
 
-// //Sched Tour//
-// const tourRouter = require('./config/api/tours/routes');
+//Sched Tour//
+const tourRouter = require('./config/api/tours/routes');
 
-// //Plan type//
-// const planRouter = require('./config/api/plans/routes');
+//Plan type//
+const planRouter = require('./config/api/plans/routes');
 
 //====================================================
 ///////API-ENDPOINTS-ROUTES//////////////////////////////////
 //====================================================
-// app.use('/api/users', userRouter);
-// app.use('api/tours', tourRouter);
-// app.use('api/plans', planRouter);
+app.use('/api/users', userRouter);
+app.use('api/tours', tourRouter);
+app.use('api/plans', planRouter);
 
 
 //====================================================
