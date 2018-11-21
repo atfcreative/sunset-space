@@ -12,7 +12,7 @@ router.get('/:id', ctrl.users.show);
 // router.post('/signin', ctrl.users.signIn);
 
 //User create route- create new user ===========
-router.post('/register', ctrl.users.create);
+// router.post('/register', ctrl.users.create);
 
 //User edit/update route ========================
 // router.put('/', ctrl.users.update);

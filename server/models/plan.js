@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const PlanSchema = new Schema({
     type: String,
-    cost: String,
+    cost: Number,
     username: String,
 });
 

@@ -40,8 +40,8 @@ const planRouter = require('./config/api/plans/routes');
 ///////API-ENDPOINTS-ROUTES//////////////////////////////////
 //====================================================
 app.use('/api/users', userRouter);
-app.use('api/tours', tourRouter);
-app.use('api/plans', planRouter);
+app.use('/api/tours', tourRouter);
+app.use('/api/plans', planRouter);
 
 
 //====================================================

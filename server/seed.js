@@ -8,17 +8,17 @@ const User = db.User;
 const planData = [
     {
         type: 'Basic',
-        cost: '$99',
+        cost: 99,
         username: 'Mandrew',
     },
     {
         type: 'Intermediate',
-        cost: '$199',
+        cost: 199,
         username: 'Steph4x',
     },
     {
         type: 'Premium',
-        cost: '$299',
+        cost: 299,
         username: 'BeauBandy',
     },
 ];
