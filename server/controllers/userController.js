@@ -28,7 +28,7 @@ const create = (req, res) => {
                 return res.status(400).json({ username:`Looks like that username is already being used.` });
             } else {
             bcrypt.hash(req.body.password, 10, (err, hash) => {
-                if (err) res.status(500).json({ error: err });
+                if (err) res.status(500).json({ error: err, message: `Cannot create user` });
                 const user = new User({
                     _id: new mongoose.Types.ObjectId(),
                     firstName: req.body.firstName,
