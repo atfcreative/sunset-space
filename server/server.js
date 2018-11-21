@@ -4,7 +4,7 @@ const port = process.env.PORT || 4000;
 
 // require db//
 const db = require('./models/index');
-const User = db.User;
+// const User = require('./config/api/users/routes');
 
 //====================================================
 ///////MIDDLE-WARE////////////////////////////////////
@@ -42,6 +42,7 @@ const planRouter = require('./config/api/plans/routes');
 app.use('/api/users', userRouter);
 app.use('/api/tours', tourRouter);
 app.use('/api/plans', planRouter);
+// app.use('/user', User);
 
 
 //====================================================
