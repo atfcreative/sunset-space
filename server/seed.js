@@ -126,7 +126,7 @@ Plan.deleteMany({}, (err) => {
             });
             user.save((err, savedUser) => {
                 if (err) throw err;
-                console.log(`Created ${User.length} new Users with default profiles`);
+                console.log(`Created ${User.username} new User with a default profiles`);
             })
         });
     });

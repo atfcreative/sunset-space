@@ -9,15 +9,15 @@ router.get('/', ctrl.users.index);
 router.get('/:id', ctrl.users.show);
 
 //User create route- create new user ===========
-// router.post('/signin', ctrl.users.signIn);
+router.post('/signin', ctrl.users.signIn);
 
 //User create route- create new user ===========
-// router.post('/register', ctrl.users.create);
+router.post('/register', ctrl.users.create);
 
 //User edit/update route ========================
-// router.put('/', ctrl.users.update);
+router.put('/', ctrl.users.update);
 
 //User destroy route ============================
-// router.delete('/:id', ctrl.users.destroy);
+router.delete('/:id', ctrl.users.destroy);
 
 module.exports = router;
