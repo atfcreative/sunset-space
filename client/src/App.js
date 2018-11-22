@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom'; 
 import jwt_decode from 'jwt-decode';
 import NavBar from './components/navbar/NavBar';
-import LoginForm from './components/LoginForm';
-import SignUpForm from './components/SignUpForm';
+import LoginForm from './components/forms/LogInForm';
+import SignUpForm from './components/forms/SignUpForm';
+import ProfilePage from './pages/ProfilePage';
 
 class App extends Component {
   state = {
@@ -23,6 +24,14 @@ componentDidMount() {
 
 setCurrentUser = (userData) => {
   this.setState({ currentUser: userData, isAuthenticated: true });
+};
+
+handleLogIn = () => {
+  console.log('Log in Clicked...');
+};
+
+handleSignUp = () => {
+  console.log('Sign Up Clicked...');
 };
 
 handleLogout = () => {
@@ -45,11 +54,11 @@ handleLogout = () => {
     )
     return (
       <div>
-        <NavBar isAuthenticated={this.state.isAuthenticated} handleLogout={this.handleLogout} />
+        <NavBar isAuthenticated={this.state.isAuthenticated} handleLogout={this.handleLogout}  />
         <Switch>
           <Route exact path='/signin' render={(props) => <LoginForm {...props} setCurrentUser={this.setCurrentUser} />} />
           <Route exact path='/register' component={SignUpForm} />
-          {/* <PrivateRoute exact path='/profile' component={Profile} /> */}
+          <PrivateRoute exact path='/profile' component={ProfilePage} />
           {/* <Route exact path='/about' component={About} /> */}
         </Switch>
       </div>

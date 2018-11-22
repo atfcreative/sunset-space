@@ -16,7 +16,7 @@ class LoginForm extends Component {
                     </div>
                     <div className="form-group">
                         <label for="exampleInputEmail1">Username</label>
-                        <input type="text" className="form-control" id="exampleInputusername1" aria-describedby="emailHelp" placeholder="Enter username" required />
+                        <input type="text" className="form-control" id="exampleInputusername1" placeholder="Enter username" required />
                     </div>
                     <div className="form-group">
                         <label for="exampleInputPassword1">Password</label>
