@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
+ 
 class LoginForm extends Component {
     state = {  }
     render() { 
@@ -10,11 +11,12 @@ class LoginForm extends Component {
                 <form>
                     <div className="col text-center">
                       <h1>Login</h1>
-                      <p className="text-h3">Welcome back! We were hoping to see you again!</p>
+                      <p className="text-h3"><strong>Welcome back,</strong> Glad to see you again!</p>
+                      <small className="text-muted">Per our privacy policy, we will never share personal information <Link to="/">learn more</Link></small>
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required />
+                        <label for="exampleInputEmail1">Username</label>
+                        <input type="text" className="form-control" id="exampleInputusername1" aria-describedby="emailHelp" placeholder="Enter username" required />
                     </div>
                     <div className="form-group">
                         <label for="exampleInputPassword1">Password</label>
