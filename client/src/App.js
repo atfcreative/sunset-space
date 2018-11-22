@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode';
 import NavBar from './components/navbar/NavBar';
 import LoginForm from './components/forms/LogInForm';
 import SignUpForm from './components/forms/SignUpForm';
-import ProfilePage from './pages/ProfilePage';
+import ProfilePage from './components/pages/ProfilePage';
 
 class App extends Component {
   state = {

@@ -39,7 +39,7 @@ class SignUpForm extends Component {
     render() { 
         return (
             
-            <form className="container" method="post" onSubmit={this.handleSubmmit}>
+            <form className="container" onSubmit={this.handleSubmit} method="post">
               <div className="row justify-content-center">
                 <div className="col-12 col-md-8 col-lg-8 col-xl-6">
                   <div className="row">
@@ -54,7 +54,7 @@ class SignUpForm extends Component {
                       <input type="text" className="form-control" id="inputFirstname" placeholder="First Name" name="firstName" onInput={this.handleChange} required />
                     </div>
                     <div className="col">
-                      <input type="text" className="form-control" id="inputLastname" name="lastName" placeholder="lastName" onInput={this.handleChange} required />
+                      <input type="lastName" className="form-control" id="inputLastname" name="lastName" placeholder="lastName" onInput={this.handleChange} required />
                     </div>
                   </div>
                   <div className="row align-items-center mt-4">
@@ -64,7 +64,7 @@ class SignUpForm extends Component {
                   </div>
                   <div className="row align-items-center mt-4">
                     <div className="col">
-                      <input type="text" className="form-control"id="inputUsername" name="userName"  placeholder="Username" onInput={this.handleChange} required />
+                      <input type="text" className="form-control"id="inputUsername" name="username"  placeholder="Username" onInput={this.handleChange} required />
                     </div>
                   </div>
                   <div className="row align-items-center mt-4">
@@ -72,7 +72,7 @@ class SignUpForm extends Component {
                       <input type="password" className="form-control" id="inputPassword" name="password" placeholder="Password" onInput={this.handleChange} required />
                     </div>
                     <div className="col">
-                      <input type="password" className="form-control" id="inputPassword2" name="password2" placeholder="Confirm Password" onInput={this.handleChange} required />
+                      <input type="password" className="form-control" id="inputPassword2" name="password2" placeholder="Confirm Password" onChange={this.handleChange} required />
                     </div>
                   </div>
                   <div className="row justify-content-start mt-4">

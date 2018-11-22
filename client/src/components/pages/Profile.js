@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode';
 import UserProfile from './users/UserProfile';
-import UsersAPI from '../models/userAPI';
+import UsersAPI from '../models/usersAPI';
 
 class Profile extends Component {
     state = {
