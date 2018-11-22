@@ -20,6 +20,7 @@ componentDidMount() {
     token = jwt_decode(localStorage.getItem('jwtToken'));
     this.setState({ currentUser: token, isAuthenticated: true });
   };
+  console.log(this.state)
 };
 
 setCurrentUser = (userData) => {
@@ -35,7 +36,7 @@ handleSignUp = () => {
 };
 
 handleLogout = () => {
-  console.log(`someone clicked logout, what the...`)
+  // console.log(`someone clicked logout, what the...`)
   if (localStorage.getItem('jwtToken') !== null ) {
     localStorage.removeItem('jwtToken');
     this.setState({ currentUser: null, isAuthenticated: false });
@@ -43,13 +44,13 @@ handleLogout = () => {
 };
 
   render() {
-    console.log('Current User: ', this.state.currentUser);
-    console.log('Authenticated: ', this.state.isAuthenticated);
+    // console.log('Current User: ', this.state.currentUser);
+    // console.log('Authenticated: ', this.state.isAuthenticated);
     const PrivateRoute = ({component: Component, ...rest}) => (
       <Route {...rest} render={(props) => (
         this.state.isAuthenticated === true
         ? <Component {...props} />
-        : <Redirect to='signin' />
+        : <Redirect to='/signin' />
       )} />
     )
     return (

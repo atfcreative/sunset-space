@@ -4,32 +4,41 @@ import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 
 class LogInForm extends Component {
-    state = { username: '', password: '', }
+    state = { username: '', password: '' }
+    
         handleChange = (event) => {
             this.setState({
                 [event.target.name]: event.target.value
             });
+            // console.log(this.state);
+
         }
+
         handleSubmit = (event) => {
             event.preventDefault();
             const userData = {
                 username: this.state.username,
                 password: this.state.password
             }
-        axios.post('http://localhost:4000/api/users/sigin', userData)
+
+        axios.post('http://localhost:4000/api/users/signin', userData)
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 const {token} = res.data;
                 /*== make sure to save the jwt token ==*/
                 localStorage.setItem('jwtToken', token);
                 /*== make sure to decode token ==*/
                 const decoded = jwt_decode(token);
                 /*== this token goes to this user ==*/
-                this.props.setCurrrentUser(decoded);
+                this.props.setCurrentUser(decoded);
                 this.props.history.push('/profile');
+                console.log(this.props);
+                alert('Killer! You are now logged in...');
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err), alert(`Invalid credentials bruh...`));
         }
+
+
         render() { 
         return (
             <div className="container">
@@ -42,15 +51,15 @@ class LogInForm extends Component {
                       <small className="text-muted">Per our privacy policy, we will never share personal information <Link to="/">learn more</Link></small>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="InputEmail">Username</label>
-                        <input type="text" className="form-control" id="Inputusername" name="username" placeholder="Enter username" onChange={this.handleChange} value={this.state.username} required />
+                        <label htmlFor="inputUsername">Username</label>
+                        <input type="text" className="form-control" id="inputusername" name="username" placeholder="Enter username" onChange={this.handleChange} value={this.state.username} required />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="InputPassword">Password</label>
-                        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={this.handleChange} value={this.state.password} required />
+                        <label htmlFor="inputPassword">Password</label>
+                        <input type="password" className="form-control" id="inputuserpassword" name="password" placeholder="Enter password" onChange={this.handleChange} value={this.state.password} required />
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
-                    <small><Link to="/signin">Already a member?</Link></small>
+                    <small className="m-2" ><Link to="/signin">Already a member?</Link></small>
                 </form>
               </div>
             </div>

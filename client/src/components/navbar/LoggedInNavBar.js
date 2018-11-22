@@ -12,10 +12,10 @@ const LoggedOutNavBar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li className="nav-item active">
-                            <NavLink className="nav-link" to="/profile" >Profile</NavLink>
+                            <NavLink className="nav-link" to="/profile" key={toString()}>Profile</NavLink>
                         </li>
                         <li className="nav-item active">
-                            <NavLink className="nav-link" to="/signin" onClick={props.handleLogout}>Logout<span className="sr-only">(current)</span></NavLink>
+                            <NavLink className="nav-link" to="/signin" onClick={props.handleLogout} key={toString()}>Logout<span className="sr-only">(current)</span></NavLink>
                         </li>
                      </ul>
                 </div>

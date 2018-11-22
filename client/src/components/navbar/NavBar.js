@@ -3,12 +3,12 @@ import LoggedOutNavBar from './LoggedOutNavBar';
 import LoggedInNavBar from './LoggedInNavBar';
 
 const NavBar = (props) => {
-    console.log(props);
+    // console.log(props);
     let navbar;
     if (props.isAuthenticated) {
-        navbar = <LoggedInNavBar handleLogout={props.handleLogout} />
+        navbar = <LoggedInNavBar handleLogout={props.handleLogout} key={toString()}/>
     }else{
-        navbar = <LoggedOutNavBar />
+        navbar = <LoggedOutNavBar key={toString()}/>
     }
     return (
             [navbar]
