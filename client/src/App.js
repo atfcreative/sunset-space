@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import './App.css';
+import NavBar from './components/NavBar';
+import LoginForm from './components/LoginForm';
+import SignUpForm from './components/SignUpForm';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <h1>Dale Pues Buddy...</h1>
+        <NavBar />
+        <LoginForm />
+        <SignUpForm />
       </div>
     );
   }
