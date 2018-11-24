@@ -7,7 +7,7 @@ import ProfileCard from '../pages/ProfileCard';
 
 class UserProfile extends Component {
     render() { 
-        const user = this.props.userData;
+        // const user = this.props.userData;
         // console.log(this.props.userData);
         
         // if (this.props.userData) {
