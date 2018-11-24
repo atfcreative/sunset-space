@@ -5,6 +5,7 @@ import NavBar from './components/navbar/NavBar';
 import LoginForm from './components/forms/LogInForm';
 import SignUpForm from './components/forms/SignUpForm';
 import ProfilePage from './components/pages/ProfilePage';
+import UsersList from './components/pages/UsersList';
 
 class App extends Component {
   state = {
@@ -20,8 +21,12 @@ componentDidMount() {
     token = jwt_decode(localStorage.getItem('jwtToken'));
     this.setState({ currentUser: token, isAuthenticated: true });
   };
-  console.log(this.state)
+  // console.log(this.state)
 };
+
+componentWillUnmount() {
+  clearInterval(this.setState);
+}
 
 setCurrentUser = (userData) => {
   this.setState({ currentUser: userData, isAuthenticated: true });
@@ -44,8 +49,8 @@ handleLogout = () => {
 };
 
   render() {
-    // console.log('Current User: ', this.state.currentUser);
-    // console.log('Authenticated: ', this.state.isAuthenticated);
+    // console.log('App.js--> Authenticated: ', this.state.isAuthenticated, );
+    console.log(this.state.currentUser);
     const PrivateRoute = ({component: Component, ...rest}) => (
       <Route {...rest} render={(props) => (
         this.state.isAuthenticated === true
@@ -60,6 +65,7 @@ handleLogout = () => {
           <Route exact path='/signin' render={(props) => <LoginForm {...props} setCurrentUser={this.setCurrentUser} />} />
           <Route exact path='/register' component={SignUpForm} />
           <PrivateRoute exact path='/profile' component={ProfilePage} />
+          <Route exact path='/users' component={UsersList} />
           {/* <Route exact path='/about' component={About} /> */}
         </Switch>
       </div>

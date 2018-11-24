@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import ProfileCard from '../pages/ProfileCard';
 // import jwt_decode from 'jwt-decode';
-// import UsersAPI from '../models/usersAPI';
+// import UsersAPI from '../../models/usersAPI';
 // import avatar from './default-avatar.jpg';
 
 
 class UserProfile extends Component {
     render() { 
-        let user = this.props.userData;
-        console.log(this.props.userData);
+        const user = this.props.userData;
+        // console.log(this.props.userData);
         
-        if (this.props.userData) {
-        let path = `/${user._id}`;
-        }
+        // if (this.props.userData) {
+        // let path = `/${user._id}`;
+        // }
         return (
             <ProfileCard />
         );

@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 import avatar from './default-avatar.jpg';
 
 class ProfileCard extends Component {
-    render() { 
-        const user = this.props.userData;
+    constructor() {
+        super();
+        this.state = {
+            user: [],
+        };
+    }
+
+render() { 
+        // const user = this.props.userData;
+        console.log(this.props.userData);
         return (
         <div className="container">
             <div className="row">
                 <div className="col-sm-10">
-                <h1>User name
+                <h1>User name 
                     {/* {user.username} */}
                     </h1></div>
                 <div className="col-sm-2"></div>
@@ -22,7 +30,7 @@ class ProfileCard extends Component {
                 <input type="file" className="text-center center-block file-upload" />
               </div><hr/><br/>
                 <div className="panel panel-default">
-                    <div className="panel-heading">Website{user} 
+                    <div className="panel-heading">Website
                     {/* <i className="fa fa-link fa-1x"></i> */}
                     </div>
                     <div className="panel-body"></div>

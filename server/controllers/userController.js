@@ -44,7 +44,7 @@ const create = (req, res) => {
                 });
                 user.save()
                     .then(result => {
-                        console.log(result);
+                        // console.log(result);
                         res.status(200).json({ success: `Successful new user guy...`});
                     })
                     .catch(error => {
@@ -78,9 +78,9 @@ const signIn = (req,res) => {
     if (!user) {
         return res.status(404).json({ username: `Not able to find user`});
     }
-    console.log(user);
+    // console.log(user);
     bcrypt.compare(req.body.password, user.password, (err, result) => {
-        console.log(result);
+        // console.log(result);
         if (err) {
             return res.status(401).json({ failed: `Access not authorized` });
         }

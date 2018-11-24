@@ -32,11 +32,14 @@ class LogInForm extends Component {
                 /*== this token goes to this user ==*/
                 this.props.setCurrentUser(decoded);
                 this.props.history.push('/profile');
-                console.log(this.props);
+                // console.log(this.props);
                 alert('Killer! You are now logged in...');
             })
-            .catch(err => console.log(err), alert(`Invalid credentials bruh...`));
-        }
+            .catch(err => {
+                alert(`Invalid credentials bruh...`)
+                console.log(err)
+            });
+        };
 
 
         render() { 
