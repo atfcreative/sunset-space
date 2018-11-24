@@ -52,8 +52,9 @@ handleLogout = () => {
 };
 
   render() {
-    // console.log('App.js--> Authenticated: ', this.state.isAuthenticated, );
+    console.log('is Authenticated?: ', this.state.isAuthenticated, );
     console.log(this.state.currentUser);
+
     const PrivateRoute = ({component: Component, ...rest}) => (
       <Route {...rest} render={(props) => (
         this.state.isAuthenticated === true
@@ -61,6 +62,7 @@ handleLogout = () => {
         : <Redirect to='/signin' />
       )} />
     )
+
     return (
       <div>
         <NavBar isAuthenticated={this.state.isAuthenticated} handleLogout={this.handleLogout}  />
