@@ -6,6 +6,8 @@ import LoginForm from './components/forms/LogInForm';
 import SignUpForm from './components/forms/SignUpForm';
 import ProfilePage from './components/pages/ProfilePage';
 import UsersList from './components/pages/UsersList';
+import About from './components/pages/About';
+import Plans from './components/pages/Plans';
 
 class App extends Component {
   state = {
@@ -32,13 +34,13 @@ setCurrentUser = (userData) => {
   this.setState({ currentUser: userData, isAuthenticated: true });
 };
 
-handleLogIn = () => {
-  console.log('Log in Clicked...');
-};
+// handleLogIn = () => {
+//   console.log('Log in Clicked...');
+// };
 
-handleSignUp = () => {
-  console.log('Sign Up Clicked...');
-};
+// handleSignUp = () => {
+//   console.log('Sign Up Clicked...');
+// };
 
 handleLogout = () => {
   // console.log(`someone clicked logout, what the...`)
@@ -66,7 +68,8 @@ handleLogout = () => {
           <Route exact path='/register' component={SignUpForm} />
           <PrivateRoute exact path='/profile' component={ProfilePage} />
           <Route exact path='/users' component={UsersList} />
-          {/* <Route exact path='/about' component={About} /> */}
+          <Route exact path='/about' component={About} />
+          <Route exact path='/plans' component={Plans} />
         </Switch>
       </div>
     );

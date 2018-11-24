@@ -50,5 +50,8 @@ const UserSchema = new Schema({
     }], 
 });
 
+// Schema.plugin(timeZone, {paths: ['date', 'subDocument.subDate']});
+// mongoose.model('Schema', Schema);
+
 const User = mongoose.model('User', UserSchema);
 module.exports = User;
