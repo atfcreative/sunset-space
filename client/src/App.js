@@ -8,6 +8,7 @@ import ProfilePage from './components/pages/ProfilePage';
 import UsersList from './components/pages/UsersList';
 import About from './components/pages/About';
 import Plans from './components/pages/Plans';
+import Landing from './components/pages/Landing';
 
 class App extends Component {
   state = {
@@ -64,6 +65,7 @@ handleLogout = () => {
       <div>
         <NavBar isAuthenticated={this.state.isAuthenticated} handleLogout={this.handleLogout}  />
         <Switch>
+          <Route exact path='/' component={Landing} />
           <Route exact path='/signin' render={(props) => <LoginForm {...props} setCurrentUser={this.setCurrentUser} />} />
           <Route exact path='/register' component={SignUpForm} />
           <PrivateRoute exact path='/profile' component={ProfilePage} />

@@ -50,11 +50,11 @@ render() {
               
               <div className="text-center">
                 <img src={avatar} className="avatar img-circle img-thumbnail" alt="avatar" />
-                <small className="text-muted">Change photo...</small>
-                <input type="file" className="center-block file-upload" />
+                <h6>Upload a different photo...</h6>
+                <input type="file" className="text-center center-block file-upload" />
                 <small className="text-muted">Member since: {items.dateAdded}</small>
               </div><hr/><br/>
-                <div className="card panel-default">
+                <div className="panel panel-default">
                     <div className="panel-heading">{items.website} <i className="fa fa-link fa-1x"></i></div>
                     <div className="panel-body"></div>
                   </div>
@@ -66,52 +66,54 @@ render() {
                         <hr/>
                           <div className="form" onSubmit={this.handleSubmit} method="post" id="registrationForm">
                               <div className="form-group">
-                                <div className="row">
-                                    <div className="col-sm">
-                                      <label htmlFor="first_name"><h6>First Name: {items.firstName}</h6></label>
+        
+                                  <div className="col-xs-6">
+                                      <label htmlFor="first_name"><h4>First Name: {items.firstName}</h4></label>
                                       <input type="text" className="form-control" name="first_name" id="first_name" placeholder="first name" />
-                                      </div>
-                                    <div className="col-sm">
-                                        <label htmlFor="last_name"><h6>Last Name: {items.lastName}</h6></label>
-                                        <input type="text" className="form-control" name="last_name" id="last_name" placeholder="last name" />
-                                    </div>
                                   </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-sm">
-                                      <label htmlFor="username"><h6>Username: {items.username}</h6></label>
-                                      <input type="email" className="form-control" id="location" placeholder="Update Username" />
-                                  
-                                    </div>
-                                    <div className="col-sm">
-                                      <label htmlFor="phone"><h6>Phone: {items.phone}</h6></label>
+                              </div>
+                              <div className="form-group">
+        
+                                  <div className="col-xs-6">
+                                    <label htmlFor="last_name"><h4>Last Name: {items.lastName}</h4></label>
+                                      <input type="text" className="form-control" name="last_name" id="last_name" placeholder="last name" />
+                                  </div>
+                              </div>
+        
+                              <div className="form-group">
+        
+                                  <div className="col-xs-6">
+                                      <label htmlFor="phone"><h4>Phone: {items.phone}</h4></label>
                                       <input type="text" className="form-control" name="phone" id="phone" placeholder="Update phone" />
-                                    </div>
-                                </div>
-
-                                <div className="row">
-                                    <div className="col-sm">
-                                      <label htmlFor="email"><h6>Email: {items.email}</h6></label>
+                                  </div>
+                              </div>
+        
+                              <div className="form-group">
+        
+                                  <div className="col-xs-6">
+                                      <label htmlFor="email"><h4>Email: {items.email}</h4></label>
                                       <input type="email" className="form-control" name="email" id="email" placeholder="Update email" />
-                                    </div>
-
-                                    <div className="col-sm">
-                                      <label htmlFor="website"><h6>Website: {items.website}</h6></label>
-                                      <input type="text" className="form-control" name="website" id="website" placeholder="Update website" />
-                                    </div>
-                                </div>
-                              
-                                <div className="row">
-                                  <div className="col-sm">
-                                      <label htmlFor="password"><h6>Reset Password</h6></label>
+                                  </div>
+                              </div>
+                              <div className="form-group">
+        
+                                  <div className="col-xs-6">
+                                      <label htmlFor="username"><h4>Username: {items.username}</h4></label>
+                                      <input type="email" className="form-control" id="location" placeholder="Update Username" />
+                                  </div>
+                              </div>
+                              <div className="form-group">
+        
+                                  <div className="col-xs-6">
+                                      <label htmlFor="password"><h4>Reset Password</h4></label>
                                       <input type="password" className="form-control" name="password" id="password" placeholder="password" />
                                   </div>
-                              
-                              
-                                <div className="col-sm">
-                                    <label htmlFor="password2"><h6>Verify Password</h6></label>
+                              </div>
+                              <div className="form-group">
+        
+                                  <div className="col-xs-6">
+                                    <label htmlFor="password2"><h4>Verify Password</h4></label>
                                       <input type="password" className="form-control" name="password2" id="password2" placeholder="password2" />
-                                  
                                   </div>
                               </div>
                               <div className="form-group">
@@ -120,8 +122,6 @@ render() {
                                         <button className="btn btn-lg btn-success" type="submit">Save</button>
                                     </div>
                               </div>
-
-
                         </div>
         
                       <hr/>
