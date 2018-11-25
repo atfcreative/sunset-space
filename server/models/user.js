@@ -56,38 +56,26 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Plan'
     }], 
-    dateAdded: 
+    created_at: 
     {
         type: Date,
         default: Date.now
-    }
+    },
+    updated_at: 
+    {
+        type: Date,
+        default: Date.now
+    },
 });
 
-// {timestamps: true}
-
-// UserSchema.methods.generateJWT = function() {
-//     let today = new Date();
-//     let exp = new Date(today.getDate() + 1);
-
-//     return jwt_decode.sign({
-//         id: this._id,
-//         username: this.username,
-//         exp: parseInt(exp.getTime() / 1000),
-//     }, secret);
-// };
-
-// UserSchema.methods.toAuthJSON = function() {
-//     return {
-//         firstName: this.firstName,
-//         lastName: this.lastName,
-//         email: this.email,
-//         website: this.website,
-//         phone: this.phone,
-//         imgUrl: this.imgUrl,
-//         username: this.username,
-//         token: this.generateJWT(),
-//     };
-// };
+UserSchema.pre('save', next => {
+    let now = new Date();
+    this.updated_at = now;
+    if (!this.created_at) {
+        this.created_at = now;
+    }
+    next();
+})
 
 UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
 // UserSchema.plugin(timeZone, {paths: ['date']});

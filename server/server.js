@@ -42,6 +42,12 @@ const planRouter = require('./config/api/plans/routes');
 app.use('/api/users', userRouter);
 app.use('/api/tours', tourRouter);
 app.use('/api/plans', planRouter);
+// app.use('/api/uploads', userRouter);
+app.use(express.static('/api/users/'));
+app.use(express.static(__dirname + '/api/users/'));
+app.use(express.static('/public'));
+app.use(express.static(__dirname + '/public/images'));
+
 // app.use('/user', User);
 
 
