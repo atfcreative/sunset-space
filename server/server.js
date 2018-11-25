@@ -45,8 +45,9 @@ app.use('/api/plans', planRouter);
 // app.use('/api/uploads', userRouter);
 app.use(express.static('/api/users/'));
 app.use(express.static(__dirname + '/api/users/'));
-app.use(express.static('/public'));
-app.use(express.static(__dirname + '/public/images'));
+app.use(express.static(__dirname + '/public/'));
+app.use(express.static('/public/'));
+app.use(express.static('http://localhost:4000/public/images/'));
 
 // app.use('/user', User);
 

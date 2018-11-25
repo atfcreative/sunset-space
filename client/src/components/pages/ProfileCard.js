@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import avatar from './default-avatar.jpg';
+// import avatar from './default-avatar.jpg';
 import jwt_decode from 'jwt-decode';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
@@ -9,6 +9,7 @@ class ProfileCard extends Component {
         super();
         this.state = {
             items: [],
+            file: null,
             // firstName: '',
             // lastName: '',
             // email: '',
@@ -16,9 +17,9 @@ class ProfileCard extends Component {
             // website: '',
             // phone: '',
             isLoaded: false,
-            
-
         };
+        this.handleFileSubmit = this.handleFileSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     componentDidMount() {
@@ -44,38 +45,32 @@ handleChange = (event) => {
             // website: '',
             // phone: '',
         });
-        console.log(this.state);
-
+        // console.log(this.state);
     }
 
-
-
-// handleUpdate = (event) => {
-//     event.preventDefault();
-    
-//     const userData = {
-//         firstName: this.state.firstName,
-//         lastName: this.state.lastName,
-//         email: this.state.email,
-//         phone: this.state.phone,
-//         website: this.state.website,
-//         username: this.state.username,
-//     }
-//     fetch('http://localhost:4000/api/users/', {
-//         method: 'PUT',
-//         body: {userData},
-//         // headers: {
-//         //     'Content-Type': 'application/json'
-//         // }
-//     }).then(res => res.json())
-//     .catch(error => console.error('Error', error))
-//     .then(response => console.log('Success:', JSON.stringify(response)));
-    
-// }
+handleFileSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('myImage', this.state.file);
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    };
+    axios.put('http://localhost:4000/uploads', formData, config)
+    .then((response) => {
+        alert('The file uploaded successfully')
+    }).catch((error) => {
+        
+    });
+}
+onChange(e) {
+    this.setState({file:e.target.files[0]});
+}
    
-handleUpdate = (event) => {
+handleUpdateSubmit = (event) => {
     event.preventDefault();
-    
+
     const userData = {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
@@ -84,15 +79,7 @@ handleUpdate = (event) => {
         website: this.state.website,
         username: this.state.username,
     }
-
-    this.setState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        website: '',
-        username: '',
-    })
+        
 axios.put('http://localhost:4000/api/users/', {
     userData
 })
@@ -105,6 +92,14 @@ axios.put('http://localhost:4000/api/users/', {
         console.log(err)
     });
 };
+
+handleLogout = () => {
+    // console.log(`someone clicked logout, what the...`)
+    if (localStorage.getItem('jwtToken') !== null ) {
+      localStorage.removeItem('jwtToken');
+      this.setState({ currentUser: null, isAuthenticated: false });
+    };
+  };
 
 handleDelete = (event) => {
         event.preventDefault();
@@ -122,6 +117,7 @@ handleDelete = (event) => {
             console.log(err)
         })
         // .then(this.handleLogout())
+        // .then(app => handleLogout())
         .then(() => this.setState({ redirect: true }));
         // alert('Delete cannot be undone')
         // console.log('delete clicked');
@@ -153,10 +149,18 @@ render() {
                 <div className="col-sm-3">
               
               <div className="text-center">
-                <img src={avatar} className="avatar img-circle img-thumbnail" alt="avatar" />
-                <small className="text-muted">Change photo...</small>
-                <input type="file" className="small file-upload" />
-                <small className="text-muted">Member since: {items.dateAdded}</small>
+                <img src={items.imgUrl} className="avatar rounded-circle img-thumbnail mb-3" alt="avatar"/>
+                
+                <form onSubmit={this.handleFileSubmit} encType="multipart/form-data" method="PUT">
+                    <div className="custom-file">
+                        <input type="file" className="custom-file-input" id="customFile" />
+                        <label className="custom-file-label" htmlFor="customFile"><i className="fas fa-file-upload"></i></label>
+                        <button type="submit" className="badge badge-sm">Upload</button>
+                    </div>
+                </form>
+
+                <small className="text-muted">Member since: {items.created_at}</small><br/>
+                <small className="text-muted">Last updated: {items.updated_at}</small>
               </div><hr/><br/>
                 <div className="card panel-default">
                     <div className="panel-heading text-center">{items.website} <i className="fa fa-link fa-1x"></i></div>
@@ -168,8 +172,8 @@ render() {
                   <div className="tab-content">
                     <div className="tab-pane active" id="home">
                         <hr/>
-                          <div className="form" method="post" id="registrationForm">
-                              <div className="form-group">
+                            <form onSubmit={this.handleUpdateSubmit} method="PUT">
+                              
                                 <div className="row">
                                     <div className="col-sm mb-4">
                                       <label htmlFor="first_name"><h6>First Name: {items.firstName}</h6></label>
@@ -206,9 +210,11 @@ render() {
                                 </div>
                                 <div className="col-sm-12">
                                     <br />
-                                    <button className="btn btn-lg btn-success btn-block" type="submit" onClick={this.handleUpdate}>Save and Update</button>
-                                </div><br/>
-
+                                    <button className="btn btn-lg btn-success btn-block" type="submit">Save and Update</button>
+                                </div>
+                            </form>
+                            <br/>
+                       
                                 <hr/>
 
                             
@@ -228,7 +234,7 @@ render() {
                                 </div>
                                 </div>
                                 <div className="col-sm-12">
-                                    <button className="btn btn-lg btn-success" type="submit" onClick={this.handleUpdate}>Save and Update</button>
+                                    <button className="btn btn-lg btn-success mt-3" type="submit" onClick={this.handleUpdate}>Save and Update</button>
                                 </div>
 
                                 <hr/>
@@ -237,17 +243,13 @@ render() {
                                     <button className="btn btn-lg btn-outline-danger btn-block" type="submit" onClick={this.handleDelete}>Delete</button>
                                     <small>This action cannot be undone.</small>
                                 </div>
-
+                                </div>
+                                <hr/>
+                            </div>
                         </div>
-        
-                      <hr/>
-        
-                     </div>
-                  </div>
-        
-                </div>
-            </div>
-        </div>
+                    </div>
+                
+           
         );
         }
     }

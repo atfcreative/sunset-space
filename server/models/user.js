@@ -59,12 +59,12 @@ const UserSchema = new Schema({
     created_at: 
     {
         type: Date,
-        default: Date.now
+        default: Date.now.toLocaleDateString
     },
     updated_at: 
     {
         type: Date,
-        default: Date.now
+        default: Date.now.toLocaleDateString
     },
 });
 
