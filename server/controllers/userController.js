@@ -1,6 +1,6 @@
 const db = require('../models');
 const express = require('express');
-// const app = express();
+const app = express();
 const User = db.User;
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');

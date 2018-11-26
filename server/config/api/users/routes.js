@@ -18,7 +18,7 @@ router.post('/register', ctrl.users.create);
 router.put('/', ctrl.users.update);
 
 //User upload avatar image route ========================
-// router.put('/uploads', ctrl.users.upload);
+// router.post('/public/uploads', ctrl.users.upload);
 
 //User destroy route ============================
 router.delete('/:id', ctrl.users.destroy);

@@ -40,6 +40,7 @@ const planRouter = require('./config/api/plans/routes');
 ///////API-ENDPOINTS-ROUTES//////////////////////////////////
 //====================================================
 app.use('/api/users', userRouter);
+app.use('/public/uploads', uploadsRouter);
 app.use('/api/tours', tourRouter);
 app.use('/api/plans', planRouter);
 // app.use('/api/uploads', userRouter);
@@ -47,9 +48,31 @@ app.use(express.static('/api/users/'));
 app.use(express.static(__dirname + '/api/users/'));
 app.use(express.static(__dirname + '/public/'));
 app.use(express.static('/public/'));
-app.use(express.static('http://localhost:4000/public/images/'));
+// app.use(express.static('http://localhost:4000/public/images/'));
 
 // app.use('/user', User);
+
+//====================================================
+///////USER PHOTO UPLOADS//////////////////////////////////
+//====================================================
+function uploadsRouter() {
+app.post('/public/uploads', (req, res, next) => {
+    let uploadFile = req.files.file
+    const fileName = req.files.file.name
+    uploadFile.mv(
+        `${__dirname}/public/uploads/${fileName}`,
+        function (err) {
+            if (err) {
+                return res.status(500).send(err)
+            }
+            res.json({
+                file: `public/uploads/${req.files.file.name}`,
+            })
+            console.log('Image upload success');
+        },
+    )
+})
+}
 
 
 //====================================================

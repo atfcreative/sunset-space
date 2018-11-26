@@ -10,12 +10,7 @@ class ProfileCard extends Component {
         this.state = {
             items: [],
             file: null,
-            // firstName: '',
-            // lastName: '',
-            // email: '',
-            // username: '',
-            // website: '',
-            // phone: '',
+            userData: null,
             isLoaded: false,
         };
         this.handleFileSubmit = this.handleFileSubmit.bind(this);
@@ -34,55 +29,59 @@ class ProfileCard extends Component {
             })
         }); 
     }
-    
-handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value,
-            // firstName: '',
-            // lastName: '',
-            // email: '',
-            // username: '',
-            // website: '',
-            // phone: '',
-        });
-        // console.log(this.state);
-    }
+
+///////////////////////////////////////////////////////////////////////
+//==== File upload logic
+///////////////////////////////////////////////////////////////////////
+onChange(event) {
+    this.setState({
+        file: event.target.files[0]
+    });
+}
 
 handleFileSubmit(e) {
     e.preventDefault();
+    console.log(this.state.file)
     const formData = new FormData();
-    formData.append('myImage', this.state.file);
+    formData.append('file', this.state.file, this.state.file.name);
     const config = {
         headers: {
             'content-type': 'multipart/form-data'
         }
     };
-    axios.put('http://localhost:4000/uploads', formData, config)
+    axios.post('http://localhost:4000/public/uploads/', formData, config)
     .then((response) => {
         alert('The file uploaded successfully')
     }).catch((error) => {
         
     });
 }
-onChange(e) {
-    this.setState({file:e.target.files[0]});
-}
-   
-handleUpdateSubmit = (event) => {
-    event.preventDefault();
 
-    const userData = {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email,
-        phone: this.state.phone,
-        website: this.state.website,
-        username: this.state.username,
-    }
-        
-axios.put('http://localhost:4000/api/users/', {
-    userData
-})
+
+///////////////////////////////////////////////////////////////////////
+//==== UPDATE PROFILE logic
+///////////////////////////////////////////////////////////////////////
+
+handleChange = (event) => {
+    this.setState({
+        userData: event.target.value,
+    });
+    console.log(this.state);
+}
+
+handleUpdateSubmit = (event) => {
+    event.preventDefault(); 
+    // const userData = {
+    //     firstName: this.state.firstName,
+    //     lastName: this.state.lastName,
+    //     email: this.state.email,
+    //     phone: this.state.phone,
+    //     website: this.state.website,
+    //     username: this.state.username,
+    // }
+    const profileData = new FormData();
+    profileData.append('json', this.state.userData);
+    axios.put('http://localhost:4000/api/users/', profileData)
     .then(res => {
         console.log(res);
         alert('Great! You updated your profile');
@@ -93,6 +92,11 @@ axios.put('http://localhost:4000/api/users/', {
     });
 };
 
+
+///////////////////////////////////////////////////////////////////////
+//==== LOGOUT profile logic
+///////////////////////////////////////////////////////////////////////
+
 handleLogout = () => {
     // console.log(`someone clicked logout, what the...`)
     if (localStorage.getItem('jwtToken') !== null ) {
@@ -100,6 +104,11 @@ handleLogout = () => {
       this.setState({ currentUser: null, isAuthenticated: false });
     };
   };
+
+
+///////////////////////////////////////////////////////////////////////
+//==== DELETE PROFILE logic
+///////////////////////////////////////////////////////////////////////
 
 handleDelete = (event) => {
         event.preventDefault();
@@ -151,11 +160,11 @@ render() {
               <div className="text-center">
                 <img src={items.imgUrl} className="avatar rounded-circle img-thumbnail mb-3" alt="avatar"/>
                 
-                <form onSubmit={this.handleFileSubmit} encType="multipart/form-data" method="PUT">
+                <form onSubmit={this.handleFileSubmit} encType="multipart/form-data" method="POST">
                     <div className="custom-file">
-                        <input type="file" className="custom-file-input" id="customFile" />
+                        <input type="file" onChange={this.onChange} className="custom-file-input" id="customFile" />
                         <label className="custom-file-label" htmlFor="customFile"><i className="fas fa-file-upload"></i></label>
-                        <button type="submit" className="badge badge-sm">Upload</button>
+                        <button type="submit" onClick={this.handleFileSubmit} className="badge badge-sm">Upload</button>
                     </div>
                 </form>
 
