@@ -53,7 +53,7 @@ handleFileSubmit(e) {
     .then((response) => {
         alert('The file uploaded successfully')
     }).catch((error) => {
-        
+        console.log('FLAILED')
     });
 }
 

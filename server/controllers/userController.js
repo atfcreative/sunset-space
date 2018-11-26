@@ -5,7 +5,7 @@ const User = db.User;
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-// const multer = require('multer');
+const multer = require('multer');
 // const JWT_TOKEN = process.env.JWT_TOKEN;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -13,33 +13,35 @@ const jwt = require('jsonwebtoken');
 //image upload --MULTER stuff
 // configuring Multer to use files directory for storing files
 // this is important because later we'll need to access file path
-// const storage = multer.diskStorage({
-//     destination: '../uploads',
-//     filename(req, file, cb) {
-//       cb(null, `${new Date()}-${file.originalname}`);
-//     },
-//   });
+const storage = multer.diskStorage({
+    destination: '../public/uploads',
+    filename(req, file, cb) {
+      cb(null, `${new Date()}-${file.originalname}`);
+    },
+  });
   
-//   const upload = multer({ storage });
+  const upload = multer({ storage });
   
-  // express route where we receive files from the client
-  // passing multer middleware
-//   app.put('/uploads', upload.single('myImage'), (req, res) => {
-//    const file = req.file; // file passed from client
-//    const meta = req.body; // all other values passed from the client, like name, etc..
+//   express route where we receive files from the client
+//   passing multer middleware
+const uploader = (req, res) => {
+  app.post('/public/uploads', upload.single('file'), (req, res) => {
+   const file = req.file; // file passed from client
+   const meta = req.body; // all other values passed from the client, like name, etc..
    
-//    // send the data to our REST API
-//    axios({
-//       url: `https://localhost:4000/uploads`,
-//       method: 'post',
-//       data: {
-//         file,
-//         name: meta.name,      
-//       },
-//     })
-//      .then(response => res.status(200).json(response.data.data))
-//      .catch((error) => res.status(500).json(error.response.data));
-//   });
+   // send the data to our REST API
+   axios({
+      url: `https://localhost:4000/api/users/`,
+      method: 'POST',
+      data: {
+        file,
+        name: meta.name,      
+      },
+    })
+     .then(response => res.status(200).json(response.data.data))
+     .catch((error) => res.status(500).json(error.response.data));
+  });
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -144,5 +146,5 @@ const signIn = (req,res) => {
 
             
 module.exports = {
-    index, show, create, update, destroy, signIn
+    index, show, create, update, destroy, signIn, uploader
 }

@@ -40,7 +40,8 @@ const planRouter = require('./config/api/plans/routes');
 ///////API-ENDPOINTS-ROUTES//////////////////////////////////
 //====================================================
 app.use('/api/users', userRouter);
-app.use('/public/uploads', uploadsRouter);
+app.use('/public/uploads', userRouter);
+// app.use('/public/uploads', uploadsRouter);
 app.use('/api/tours', tourRouter);
 app.use('/api/plans', planRouter);
 // app.use('/api/uploads', userRouter);
@@ -55,24 +56,24 @@ app.use(express.static('/public/'));
 //====================================================
 ///////USER PHOTO UPLOADS//////////////////////////////////
 //====================================================
-function uploadsRouter() {
-app.post('/public/uploads', (req, res, next) => {
-    let uploadFile = req.files.file
-    const fileName = req.files.file.name
-    uploadFile.mv(
-        `${__dirname}/public/uploads/${fileName}`,
-        function (err) {
-            if (err) {
-                return res.status(500).send(err)
-            }
-            res.json({
-                file: `public/uploads/${req.files.file.name}`,
-            })
-            console.log('Image upload success');
-        },
-    )
-})
-}
+// function uploadsRouter() {
+// app.post('public/uploads', (req, res, next) => {
+//     let uploadFile = req.files.file
+//     const fileName = req.files.file.name
+//     uploadFile.mv(
+//         `${__dirname}/public/uploads/${fileName}`,
+//         function (err) {
+//             if (err) {
+//                 return res.status(500).send(err)
+//             }
+//             res.json({
+//                 file: `public/uploads/${req.files.file.name}`,
+//             })
+//             console.log('Image upload success');
+//         },
+//     )
+// })
+// }
 
 
 //====================================================
