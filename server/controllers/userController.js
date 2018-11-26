@@ -14,7 +14,7 @@ const multer = require('multer');
 // configuring Multer to use files directory for storing files
 // this is important because later we'll need to access file path
 const storage = multer.diskStorage({
-    destination: '../public/uploads',
+    destination: '../public',
     filename(req, file, cb) {
       cb(null, `${new Date()}-${file.originalname}`);
     },
@@ -24,14 +24,14 @@ const storage = multer.diskStorage({
   
 //   express route where we receive files from the client
 //   passing multer middleware
-const uploader = (req, res) => {
-  app.post('/public/uploads', upload.single('file'), (req, res) => {
+const uploader = () => {
+   upload.single('file'), (req, res) => {
    const file = req.file; // file passed from client
    const meta = req.body; // all other values passed from the client, like name, etc..
-   
+   console.log(file, 'some string!')
    // send the data to our REST API
    axios({
-      url: `https://localhost:4000/api/users/`,
+      url: `https://localhost:4000/public`,
       method: 'POST',
       data: {
         file,
@@ -40,7 +40,7 @@ const uploader = (req, res) => {
     })
      .then(response => res.status(200).json(response.data.data))
      .catch((error) => res.status(500).json(error.response.data));
-  });
+  };
 }
 
 ////////////////////////////////////////////////////////////////////////////////

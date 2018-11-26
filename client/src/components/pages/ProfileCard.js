@@ -10,11 +10,16 @@ class ProfileCard extends Component {
         this.state = {
             items: [],
             file: null,
-            userData: null,
-            isLoaded: false,
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            website: '',
+            username: '',
+            isLoaded: false
         };
         this.handleFileSubmit = this.handleFileSubmit.bind(this);
-        this.onChange = this.onChange.bind(this);
+        // this.onChange = this.onChange.bind(this);
     }
 
     componentDidMount() {
@@ -33,7 +38,7 @@ class ProfileCard extends Component {
 ///////////////////////////////////////////////////////////////////////
 //==== File upload logic
 ///////////////////////////////////////////////////////////////////////
-onChange(event) {
+handleFile = event => {
     this.setState({
         file: event.target.files[0]
     });
@@ -41,15 +46,17 @@ onChange(event) {
 
 handleFileSubmit(e) {
     e.preventDefault();
-    console.log(this.state.file)
     const formData = new FormData();
     formData.append('file', this.state.file, this.state.file.name);
+    console.log(formData)
+    console.log(this.state.file)
+    console.log(this.state.file.name)
     const config = {
         headers: {
             'content-type': 'multipart/form-data'
         }
     };
-    axios.post('http://localhost:4000/public/uploads/', formData, config)
+    axios.post('http://localhost:4000/public/', formData, config)
     .then((response) => {
         alert('The file uploaded successfully')
     }).catch((error) => {
@@ -64,25 +71,38 @@ handleFileSubmit(e) {
 
 handleChange = (event) => {
     this.setState({
-        userData: event.target.value,
+        [event.target.name]: event.target.value
     });
     console.log(this.state);
 }
 
 handleUpdateSubmit = (event) => {
     event.preventDefault(); 
-    // const userData = {
-    //     firstName: this.state.firstName,
-    //     lastName: this.state.lastName,
-    //     email: this.state.email,
-    //     phone: this.state.phone,
-    //     website: this.state.website,
-    //     username: this.state.username,
-    // }
-    const profileData = new FormData();
-    profileData.append('json', this.state.userData);
-    axios.put('http://localhost:4000/api/users/', profileData)
+    const userData = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        phone: this.state.phone,
+        website: this.state.website,
+        username: this.state.username,
+    }
+    // const profileData = new FormData();
+    console.log(userData);
+    // debugger;
+    // profileData.append('json', this.state.userData);
+    let user = jwt_decode(localStorage.getItem('jwtToken'));
+    let id = user._id;
+    axios.put('http://localhost:4000/api/users/' + id, userData)
     .then(res => {
+        this.setState({
+            items: userData,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            email: userData.email,
+            phone: userData.phone,
+            website: userData.website,
+            username: userData.username,
+        })
         console.log(res);
         alert('Great! You updated your profile');
     })
@@ -160,13 +180,22 @@ render() {
               <div className="text-center">
                 <img src={items.imgUrl} className="avatar rounded-circle img-thumbnail mb-3" alt="avatar"/>
                 
-                <form onSubmit={this.handleFileSubmit} encType="multipart/form-data" method="POST">
+                {/* <form onSubmit={this.handleFileSubmit} encType="multipart/form-data" method="POST"> */}
                     <div className="custom-file">
-                        <input type="file" onChange={this.onChange} className="custom-file-input" id="customFile" />
+                        <input 
+                        type="file" 
+                        name=""
+                        id="" 
+                        onChange={this.handleFile}
+                        className="custom-file-input" 
+                        />
                         <label className="custom-file-label" htmlFor="customFile"><i className="fas fa-file-upload"></i></label>
-                        <button type="submit" onClick={this.handleFileSubmit} className="badge badge-sm">Upload</button>
+                        <button 
+                        type="submit" 
+                        onClick={this.handleFileSubmit} 
+                        className="badge badge-sm">Upload</button>
                     </div>
-                </form>
+                {/* </form> */}
 
                 <small className="text-muted">Member since: {items.created_at}</small><br/>
                 <small className="text-muted">Last updated: {items.updated_at}</small>
@@ -181,40 +210,82 @@ render() {
                   <div className="tab-content">
                     <div className="tab-pane active" id="home">
                         <hr/>
-                            <form onSubmit={this.handleUpdateSubmit} method="PUT">
+                            <form onSubmit={this.handleUpdateSubmit} method="POST">
                               
                                 <div className="row">
                                     <div className="col-sm mb-4">
                                       <label htmlFor="first_name"><h6>First Name: {items.firstName}</h6></label>
-                                      <input type="text" className="form-control" name="first_name" id="first_name" placeholder="first name" onChange={this.handleChange} value={this.state.firstName} />
+                                      <input 
+                                      type="text" 
+                                      className="form-control" 
+                                      name="firstName" id="firstName" 
+                                      placeholder="first name" 
+                                      onChange={this.handleChange} 
+                                      value={this.state.firstName} 
+                                      />
                                       </div>
                                     <div className="col-sm mb-4">
                                         <label htmlFor="last_name"><h6>Last Name: {items.lastName}</h6></label>
-                                        <input type="text" className="form-control" name="last_name" id="last_name" placeholder="last name" onChange={this.handleChange} value={this.state.lastName} />
+                                        <input 
+                                        type="text" 
+                                        className="form-control" 
+                                        name="lastName" 
+                                        id="lastName" 
+                                        placeholder="last name" 
+                                        onChange={this.handleChange} 
+                                        value={this.state.lastName} 
+                                        />
                                     </div>
                                   </div>
                                 
                                 <div className="row">
                                     <div className="col-sm mb-4">
                                       <label htmlFor="username"><h6>Username: {items.username}</h6></label>
-                                      <input type="text" className="form-control" id="username" placeholder="Update Username" onChange={this.handleChange} value={this.state.username} />
+                                      <input 
+                                      type="text" 
+                                      className="form-control" 
+                                      name="username"
+                                      id="username" 
+                                      placeholder="Update Username" 
+                                      onChange={this.handleChange} 
+                                      value={this.state.username} 
+                                      />
                                   
                                     </div>
                                     <div className="col-sm mb-4">
                                       <label htmlFor="phone"><h6>Phone: {items.phone}</h6></label>
-                                      <input type="text" className="form-control" name="phone" id="phone" placeholder="Update phone" onChange={this.handleChange} value={this.state.phone} />
+                                      <input type="text" 
+                                      className="form-control" 
+                                      name="phone" 
+                                      id="phone" 
+                                      placeholder="Update phone" 
+                                      onChange={this.handleChange} 
+                                      value={this.state.phone} />
                                     </div>
                                 </div>
 
                                 <div className="row">
                                     <div className="col-sm mb-4">
                                       <label htmlFor="email"><h6>Email: {items.email}</h6></label>
-                                      <input type="email" className="form-control" name="email" id="email" placeholder="Update email" onChange={this.handleChange} value={this.state.email} />
+                                      <input 
+                                      type="email" 
+                                      className="form-control" 
+                                      name="email" 
+                                      id="email" 
+                                      placeholder="Update email" 
+                                      onChange={this.handleChange} 
+                                      value={this.state.email} />
                                     </div>
 
                                     <div className="col-sm mb-4">
                                       <label htmlFor="website"><h6>Website: {items.website}</h6></label>
-                                      <input type="text" className="form-control" name="website" id="website" placeholder="Update website" onChange={this.handleChange} value={this.state.website} />
+                                      <input 
+                                      type="text" 
+                                      className="form-control" 
+                                      name="website" id="website" 
+                                      placeholder="Update website" 
+                                      onChange={this.handleChange} 
+                                      value={this.state.website} />
                                     </div>
                                 </div>
                                 <div className="col-sm-12">

@@ -15,10 +15,13 @@ router.post('/signin', ctrl.users.signIn);
 router.post('/register', ctrl.users.create);
 
 //User edit/update route ========================
-router.put('/', ctrl.users.update);
+router.put('/:id', ctrl.users.update);
 
-//User upload avatar image route ========================
-router.post('/public/uploads', ctrl.users.uploader);
+//User edit/update route ========================
+router.get('/public', ctrl.users.index);
+
+// //User upload avatar image route ========================
+router.post('/public', ctrl.users.uploader);
 
 //User destroy route ============================
 router.delete('/:id', ctrl.users.destroy);
