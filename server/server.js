@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 const multer = require('multer');
-// const axios = require('axios');
 const path = require('path');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 // require db//
 const db = require('./models/index');
-// const User = require('./config/api/users/routes');
 
 //====================================================
 ///////MIDDLE-WARE////////////////////////////////////
@@ -43,16 +43,14 @@ const planRouter = require('./config/api/plans/routes');
 const avatarRouter = require('./config/api/avatar/routes');
 
 //====================================================
-///////API-ENDPOINTS-ROUTES//////////////////////////////////
+///////API-ENDPOINTS-ROUTES///////////////////////////
 //====================================================
 app.use('/api/users', userRouter);
 app.use('/api/tours', tourRouter);
 app.use('/api/plans', planRouter);
 app.use('/api/avatar', avatarRouter);
 
-// app.use('/public', userRouter);
-
-// other routes...
+// GET routes
 app.get('/avatar/:imagename', (req, res) => {
     res.sendFile('public/uploads/' + req.params.imagename, { root: __dirname });
 })
@@ -81,8 +79,30 @@ app.use(function (req, res, next) {
     }
 });
 
+
 //====================================================
-/////// MULTER -- USER Avatar uploads //////////////////////////////////
+/////// MULTER -- USER Avatar uploads ////////////////
+//====================================================
+
+const CORS_WHITELIST = require('./constants/frontend');
+
+const corsOptions = {
+    origin: (origin, callback) =>
+    (CORS_WHITELIST.indexOf(origin) !== -1)
+    ? callback(null, true)
+    : callback(new Error('Not allowed by CORS mate!'))
+};
+
+const configureServer = app => {
+    app.use(cors(corsOptions));
+
+    app.use(bodyParser.json());
+};
+
+module.exports = configureServer;
+
+//====================================================
+/////// MULTER -- USER Avatar uploads ////////////////
 //====================================================
 
 // configuring Multer to use files directory for storing files
@@ -131,7 +151,7 @@ app.post('/public', upload.single('file'), (req, res) => {
   })
 
 //====================================================
-///////SANITY CHECK//////////////////////////////////
+///////SANITY CHECK///////////////////////////////////
 //====================================================
 app.get('/', (req, res) => {
     res.send('<h1>&#128372; Moonwalking Micheal Jackson style...</h1>');
