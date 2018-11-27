@@ -1,43 +1,65 @@
 const db = require('../models');
 const Avatar = db.Avatar;
 
-const index = (req, res) => {
-    Avatar.find({}, (err, avatars) => {
-        if (err) res.send({ err: true, message: `Non-matchable plan, shoots bruh...`});
-        res.json(avatars);
-    });
-};
+///////////////////////////////////////////////////
+///////INDEX- get /api/avatars////////////////////////////
 
+const index = (req, res) => {
+    Avatar.find({})
+        .populate('user')
+        .exec((err, getAvatars) => {
+            if (err) {
+                console.log(err)
+                return;
+            }
+            res.json(getAvatars);
+        });
+}
+
+///////////////////////////////////////////////////
+///////SHOW- get /api/avatars/:user_id///////////////////
 const show = (req, res) => {
-    const {id} = req.params;
-    Avatar.findById(id, (err, avatar) => {
-        if (err) res.send({ err: true, message: `Wait?! There is no plan with ID:${id}....` });
-        res.json(avatar);
-    });
-};
+    let id = req.params.user_id;
+    Avatar.find({user: id}, (err, getAvatar) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        res.json(getAvatar);
+        });
+    };
+
+
+///////////////////////////////////////////////////
+///////create, POST///////////////////
 
 const create = (req, res) => {
-    Avatar.create(req.body, (err, newAvatar) => {
-        if (err) res.send({ err: true, message: `mmmrrrppkkk errrror, does not compute...` });
-        res.json(newAvatar);
-    });
-};
-
-const update = (req,res) => {
-    Avatar.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedAvatar) => {
-        if (err) res.send({ err: true, message: `Meeerrrpppp, Cannot update the user...`});
-        res.json(updatedAvatar);
-    });
-};
-
-const destroy = (req, res) => {
-    Avatar.findByIdAndDelete(req.params.id, (err, deletedAvatar) => {
-        if (err) res.send({ err: true, message: `Meeerrrpppp, Cannot delete the user...`});
-        res.json({ error: false, message: `Righteous, User deleted to the max...`});
-    });
-};
-
+    upload(req, res, (err) => {
+        if (err) {
+            res.json({
+                error: err,
+                msg: 'There was an error uploading the avatar.'
+            })
+        } else {
+            Avatar.findOneAndRemove({user: req.params.user_id}, (err, getAvatar) => {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+            })
+            console.log("REQ FILE", req.file); 
+            // create new profile image
+            let newAvatar = new db.Avatar({
+                user: req.params.user_id,
+                name: req.file.filename,
+                mimetype: req.file.mimetype,
+            });
+            newAvatar.save();
+            res.json(newAvatar)
+        }
+    })
+}
 
 module.exports = {
-    index, show, create, update, destroy
+    index, show, create,
 }

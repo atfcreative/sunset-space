@@ -53,16 +53,16 @@ app.use('/api/avatar', avatarRouter);
 // app.use('/public', userRouter);
 
 // other routes...
-// app.get('/avatar/:imagename', (req, res) => {
-//     res.sendFile('public/uploads/' + req.params.imagename, { root: __dirname });
-// })
+app.get('/avatar/:imagename', (req, res) => {
+    res.sendFile('public/uploads/' + req.params.imagename, { root: __dirname });
+})
 app.get('/public', (req, res) => {
     console.log('working');
 });
 
 
 //====================================================
-/////// STATIC-ROUTES//////////////////////////////////
+/////// SERVE-STATIC-FILES   /////////////////////////
 //====================================================
 
 app.use(express.static(__dirname + '/api/users/'));
@@ -90,7 +90,8 @@ app.use(function (req, res, next) {
 const storage = multer.diskStorage({
     destination: './public/uploads',
     filename(req, file, cb) {
-      cb(null, file.fieldname + '-' + Date().toLocaleString().slice(0,10) + path.extname(file.originalname));
+    //   cb(null, file.fieldname + '-' + Date().toLocaleString().slice(0,10) + path.extname(file.originalname));
+    cb(null, file.filename + path.extname(file.originalname));
     },
   });
   

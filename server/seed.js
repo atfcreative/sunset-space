@@ -43,7 +43,7 @@ const userData = [
         website: 'Beau-Bandy.com',
         username: 'BeauBandy',
         password: 'testing321',
-        imgUrl: 'https://picsum.photos/200',
+        imgUrl: 'http://localhost:4000/uploads/default-avatar.jpg',
         tour: [],
         plan: [],
     },
@@ -55,7 +55,7 @@ const userData = [
         website: 'Beau-Bandrew.com',
         username: 'Mandrew1',
         password: 'testing321',
-        imgUrl: 'https://picsum.photos/200',
+        imgUrl: 'http://localhost:4000/uploads/default-avatar.jpg',
         tour: [],
         plan: [],
     },
@@ -67,7 +67,7 @@ const userData = [
         website: 'worldchamp.com',
         username: 'Steph4x',
         password: 'testing321',
-        imgUrl: 'https://picsum.photos/200/',
+        imgUrl: 'http://localhost:4000/uploads/default-avatar.jpg',
         tour: [],
         plan: [],
     },
@@ -79,7 +79,7 @@ const userData = [
         website: 'worldchamp.com',
         username: 'Carissa3x',
         password: 'testing321',
-        imgUrl: 'http://localhost:4000/public/images/carissa.jpg',
+        imgUrl: 'http://localhost:4000/uploads/carissa.jpg',
         tour: [],
         plan: [],
     },
@@ -88,9 +88,17 @@ const userData = [
 
 // const avatarData = [
 //     {
-//         imgUrl: ,
+//         imgUrl: '../public/uploads/pro1.jpg',
 //         user: id
-//     }
+//     },
+//     {
+//         imgUrl: '../public/uploads/pro1.jpg',
+//         user: id
+//     },
+//     {
+//         imgUrl: '../public/uploads/pro1.jpg',
+//         user: id
+//     },
 // ]
 
 //Remove all Plans

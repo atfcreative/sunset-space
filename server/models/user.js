@@ -46,8 +46,8 @@ const UserSchema = new Schema({
     imgUrl: 
     {
         type: String,
-        required: false
-        
+        required: false,
+        default: 'http://localhost:4000/uploads/default-avatar.jpg'
     },
     tour: [{
         type: Schema.Types.ObjectId,
