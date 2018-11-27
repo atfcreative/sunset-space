@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom'; 
+import { Route, Switch, } from 'react-router-dom'; //Redirect
 import jwt_decode from 'jwt-decode';
 import NavBar from './components/navbar/NavBar';
 import LoginForm from './components/forms/LogInForm';
@@ -55,13 +55,13 @@ handleLogout = () => {
     console.log('is Authenticated?: ', this.state.isAuthenticated, );
     console.log(this.state.currentUser);
 
-    const PrivateRoute = ({component: Component, ...rest}) => (
-      <Route {...rest} render={(props) => (
-        this.state.isAuthenticated === true
-        ? <Component {...props} />
-        : <Redirect to='/signin' />
-      )} />
-    )
+    // const PrivateRoute = ({component: Component, ...rest}) => (
+    //   <Route {...rest} render={(props) => (
+    //     this.state.isAuthenticated === true
+    //     ? <Component {...props} />
+    //     : <Redirect to='/signin' />
+    //   )} />
+    // )
 
     return (
       <div>
@@ -70,7 +70,8 @@ handleLogout = () => {
           <Route exact path='/' component={Landing} />
           <Route exact path='/signin' render={(props) => <LoginForm {...props} setCurrentUser={this.setCurrentUser} />} />
           <Route exact path='/register' component={SignUpForm} />
-          <PrivateRoute exact path='/profile' component={ProfilePage} />
+          {/* <PrivateRoute exact path='/profile' component={ProfilePage} /> */}
+          <Route exact path='/profile' component={ProfilePage} />
           <Route exact path='/users' component={UsersList} />
           <Route exact path='/about' component={About} />
           <Route exact path='/plans' component={Plans} />

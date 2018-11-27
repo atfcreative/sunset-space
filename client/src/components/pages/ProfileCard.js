@@ -31,6 +31,12 @@ class ProfileCard extends Component {
             this.setState({
                 isLoaded: true,
                 items: json,
+                firstName: json.firstName,
+                lastName: json.lastName,
+                email: json.email,
+                phone: json.phone,
+                website: json.website,
+                username: json.username,
             })
         }); 
     }
@@ -155,6 +161,8 @@ handleDelete = (event) => {
 render() { 
     const { redirect } = this.state;
     let { isLoaded, items, } = this.state;
+    // let createdTime = new Date().toLocaleString().slice(0,10); 
+   
 
     if (!isLoaded) {
         return <div>Loading...</div>

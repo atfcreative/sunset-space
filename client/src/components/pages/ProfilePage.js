@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import UserProfile from '../users/UserProfile';
+// import UserProfile from '../users/UserProfile';
+import ProfileCard from '../pages/ProfileCard';
+
 // import jwt_decode from 'jwt-decode';
 // import UsersAPI from '../../models/usersAPI';
 // import axios from 'axios';
@@ -75,8 +77,7 @@ class ProfilePage extends Component {
 
     render() { 
       return (
-            <UserProfile />
-            // <UserProfile userDataimets={this.state.user}  />
+            <ProfileCard />
       );
   }
 }
