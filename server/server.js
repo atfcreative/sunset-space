@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
+const multer = require('multer');
+const axios = require('axios');
 
 // require db//
 const db = require('./models/index');
@@ -40,8 +42,8 @@ const planRouter = require('./config/api/plans/routes');
 ///////API-ENDPOINTS-ROUTES//////////////////////////////////
 //====================================================
 app.use('/api/users', userRouter);
+// app.use('/public', userRouter);
 app.use('/public', userRouter);
-// app.use('/public', uploadsRouter);
 app.use('/api/tours', tourRouter);
 app.use('/api/plans', planRouter);
 // app.use('/api/uploads', userRouter);
@@ -49,32 +51,47 @@ app.use('/api/plans', planRouter);
 app.use(express.static(__dirname + '/api/users/'));
 app.use(express.static(__dirname + '/public/'));
 
-
-// app.use(express.static('http://localhost:4000/public/images/'));
-
-// app.use('/user', User);
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-token");
+    if(req.method === 'OPTIONS') {
+        res.end();
+    }
+    else {
+        next();
+    }
+});
 
 //====================================================
-///////USER PHOTO UPLOADS//////////////////////////////////
+/////// MULTER -- USER Avatar uploads //////////////////////////////////
 //====================================================
-// function uploadsRouter() {
-// app.post('public/uploads', (req, res, next) => {
-//     let uploadFile = req.files.file
-//     const fileName = req.files.file.name
-//     uploadFile.mv(
-//         `${__dirname}/public/uploads/${fileName}`,
-//         function (err) {
-//             if (err) {
-//                 return res.status(500).send(err)
-//             }
-//             res.json({
-//                 file: `public/uploads/${req.files.file.name}`,
-//             })
-//             console.log('Image upload success');
-//         },
-//     )
-// })
-// }
+
+// configuring Multer to use files directory for storing files
+// this is important because later we'll need to access file path
+const storage = multer.diskStorage({
+    destination: './public/uploads',
+    filename(req, file, cb) {
+      cb(null, `${new Date()}-${file.originalname}`);
+    },
+  });
+  
+  const upload = multer({ storage });
+  
+//   express route where we receive files from the client
+//   passing multer middleware
+app.post('/public', upload.single('file'), (req, res) => {
+   const file = req.file; // file passed from client
+   const meta = req.body; // all other values passed from the client, like name, etc..
+   console.log(file, 'success!')
+
+   res.end();
+  })
+
+app.get('/public', (req, res) => {
+    console.log('working');
+});
+
+
 
 
 //====================================================

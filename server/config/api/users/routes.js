@@ -21,7 +21,7 @@ router.put('/:id', ctrl.users.update);
 router.get('/public', ctrl.users.index);
 
 // //User upload avatar image route ========================
-router.post('/public', ctrl.users.uploader);
+// router.post('/public', ctrl.users.uploader);
 
 //User destroy route ============================
 router.delete('/:id', ctrl.users.destroy);

@@ -5,43 +5,7 @@ const User = db.User;
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const multer = require('multer');
 // const JWT_TOKEN = process.env.JWT_TOKEN;
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-//image upload --MULTER stuff
-// configuring Multer to use files directory for storing files
-// this is important because later we'll need to access file path
-const storage = multer.diskStorage({
-    destination: '../public',
-    filename(req, file, cb) {
-      cb(null, `${new Date()}-${file.originalname}`);
-    },
-  });
-  
-  const upload = multer({ storage });
-  
-//   express route where we receive files from the client
-//   passing multer middleware
-const uploader = () => {
-   upload.single('file'), (req, res) => {
-   const file = req.file; // file passed from client
-   const meta = req.body; // all other values passed from the client, like name, etc..
-   console.log(file, 'some string!')
-   // send the data to our REST API
-   axios({
-      url: `https://localhost:4000/public`,
-      method: 'POST',
-      data: {
-        file,
-        name: meta.name,      
-      },
-    })
-     .then(response => res.status(200).json(response.data.data))
-     .catch((error) => res.status(500).json(error.response.data));
-  };
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -53,6 +17,9 @@ const index = (req, res) => {
     });
 };
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 const show = (req, res) => {
     const { id } = req.params;
     User.findById(id, (err, user) => {
@@ -60,6 +27,9 @@ const show = (req, res) => {
         res.json(user);
     })
 };
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 //Create new user on Log in, with default profile
 const create = (req, res) => {
@@ -96,6 +66,9 @@ const create = (req, res) => {
     });
 };
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 const update = (req,res) => {
     User.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedUser) => {
         if (err) res.send({ err: true, message: `Meeerrrpppp, Cannot update the user...`});
@@ -103,12 +76,18 @@ const update = (req,res) => {
     });
 };
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 const destroy = (req, res) => {
     User.findByIdAndDelete(req.params.id, (err, deletedUser) => {
         if (err) res.send({ err: true, message: `Meeerrrpppp, Cannot delete the user...`});
         res.json({ error: false, message: `Righteous, User deleted to the max...`});
     });
 };
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 //Sign in the user to the app...
 const signIn = (req,res) => {
@@ -146,5 +125,5 @@ const signIn = (req,res) => {
 
             
 module.exports = {
-    index, show, create, update, destroy, signIn, uploader
+    index, show, create, update, destroy, signIn,
 }
