@@ -86,6 +86,13 @@ const userData = [
     
 ];
 
+// const avatarData = [
+//     {
+//         imgUrl: ,
+//         user: id
+//     }
+// ]
+
 //Remove all Plans
 Plan.deleteMany({}, (err) => {
     if (err) throw err;
