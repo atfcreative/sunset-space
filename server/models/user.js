@@ -47,6 +47,7 @@ const UserSchema = new Schema({
     {
         type: String,
         required: false
+        
     },
     tour: [{
         type: Schema.Types.ObjectId,

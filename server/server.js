@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 const multer = require('multer');
-const axios = require('axios');
+// const axios = require('axios');
+const path = require('path');
 
 // require db//
 const db = require('./models/index');
@@ -38,19 +39,37 @@ const tourRouter = require('./config/api/tours/routes');
 //Plan type//
 const planRouter = require('./config/api/plans/routes');
 
+//Plan type//
+const avatarRouter = require('./config/api/avatar/routes');
+
 //====================================================
 ///////API-ENDPOINTS-ROUTES//////////////////////////////////
 //====================================================
 app.use('/api/users', userRouter);
-// app.use('/public', userRouter);
-app.use('/public', userRouter);
 app.use('/api/tours', tourRouter);
 app.use('/api/plans', planRouter);
-// app.use('/api/uploads', userRouter);
-// app.use(express.static('/api/users/'));
+app.use('/api/avatar', avatarRouter);
+
+// app.use('/public', userRouter);
+
+// other routes...
+// app.get('/avatar/:imagename', (req, res) => {
+//     res.sendFile('public/uploads/' + req.params.imagename, { root: __dirname });
+// })
+app.get('/public', (req, res) => {
+    console.log('working');
+});
+
+
+//====================================================
+/////// STATIC-ROUTES//////////////////////////////////
+//====================================================
+
 app.use(express.static(__dirname + '/api/users/'));
 app.use(express.static(__dirname + '/public/'));
-
+const publicPath = path.join(__dirname, '../server/public');
+app.use(express.static(publicPath));
+app.use('/public/images', express.static('Images'));
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-token");
@@ -71,7 +90,7 @@ app.use(function (req, res, next) {
 const storage = multer.diskStorage({
     destination: './public/uploads',
     filename(req, file, cb) {
-      cb(null, `${new Date()}-${file.originalname}`);
+      cb(null, file.filename + '-' + Date().toLocaleString().slice(0,10) + path.extname(file.originalname));
     },
   });
   
@@ -87,20 +106,12 @@ app.post('/public', upload.single('file'), (req, res) => {
    res.end();
   })
 
-app.get('/public', (req, res) => {
-    console.log('working');
-});
-
-
-
-
 //====================================================
 ///////SANITY CHECK//////////////////////////////////
 //====================================================
 app.get('/', (req, res) => {
     res.send('<h1>&#128372; Moonwalking Micheal Jackson style...</h1>');
 });
-
 
 
 //====================================================

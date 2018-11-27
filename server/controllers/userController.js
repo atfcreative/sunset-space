@@ -40,6 +40,7 @@ const create = (req, res) => {
             } else {
             bcrypt.hash(req.body.password, 10, (err, hash) => {
                 if (err) res.status(500).json({ error: err, message: `Cannot create user` });
+
                 const user = new User({
                     _id: new mongoose.Types.ObjectId(),
                     firstName: req.body.firstName,
@@ -53,6 +54,7 @@ const create = (req, res) => {
                     tour: [],
                     plan: [],
                 });
+
                 user.save()
                     .then(result => {
                         // console.log(result);
