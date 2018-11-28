@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Checkout from '../Checkout';
 
 class Plans extends Component {
     render() { 
@@ -23,7 +24,11 @@ class Plans extends Component {
                             <li>Email support</li>
                             <li>Help center access</li>
                             </ul>
-                            <button type="button" className="btn btn-lg btn-block btn-primary">Purchase</button>
+                            <Checkout 
+                                name={'The Road to Learn React'}
+                                description={'Only the Book'}
+                                amount={1000}
+                            />
                         </div>
                         </div>
                         <div className="card mb-4 shadow-sm">

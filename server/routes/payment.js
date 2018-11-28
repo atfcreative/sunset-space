@@ -13,6 +13,7 @@ const paymentAPI = app => {
     });
 
     app.post('/', (req,res) => {
+        console.log('Hitting this now...')
         stripe.charges.create(req.body, postStripeCharge(res));
     });
 

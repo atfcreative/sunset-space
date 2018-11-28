@@ -81,7 +81,7 @@ app.use(function (req, res, next) {
 
 
 //====================================================
-/////// MULTER -- USER Avatar uploads ////////////////
+/////// Stripe CORS stuff ////////////////
 //====================================================
 
 const CORS_WHITELIST = require('./constants/frontend');
@@ -99,7 +99,15 @@ const configureServer = app => {
     app.use(bodyParser.json());
 };
 
-module.exports = configureServer;
+const SERVER_CONFIGS = require('./constants/server');
+
+// const configureServer = require('./server');
+const configureRoutes = require('./routes');
+
+configureServer(app);
+configureRoutes(app);
+
+// module.exports = configureServer;
 
 //====================================================
 /////// MULTER -- USER Avatar uploads ////////////////
