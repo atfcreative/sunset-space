@@ -37,6 +37,7 @@ class ProfileCard extends Component {
                 phone: json.phone,
                 website: json.website,
                 username: json.username,
+                imgUrl: json.imgUrl,
             })
         }); 
     }
@@ -62,6 +63,7 @@ handleFileSubmit(e) {
             'content-type': 'multipart/form-data'
         }
     };
+    
     axios.post('http://localhost:4000/public/', formData, config)
     .then((response) => {
         alert('The file uploaded successfully')
@@ -141,26 +143,29 @@ handleDelete = (event) => {
 
         let user = jwt_decode(localStorage.getItem('jwtToken'));
         let id = user._id;
-        
+
     axios.delete('http://localhost:4000/api/users/' + id)
         .then(res => {
             console.log(res);
             alert('Boo! You deleted your profile');
         })
+        .then(res => {
+            if (user._id === null ) {
+                this.setState({ currentUser: null, isAuthenticated: false })
+              }
+        })
+        .then(() => this.setState({ redirect: true }))
         .catch(err => {
             alert(`Brudda, no can delete...`)
             console.log(err)
-        })
-        // .then(this.handleLogout())
-        // .then(app => handleLogout())
-        .then(() => this.setState({ redirect: true }));
-        // alert('Delete cannot be undone')
-        // console.log('delete clicked');
-    }
+        });
+    };
 
 render() { 
     const { redirect } = this.state;
     let { isLoaded, items, } = this.state;
+    // const date = this.props.items.created_at.toLocaleString().slice(0,10);
+    // const date2 = this.props.items.updated_at.toLocaleString().slice(0,10);
     // let createdTime = new Date().toLocaleString().slice(0,10); 
    
 
@@ -188,7 +193,6 @@ render() {
               <div className="text-center">
                 <img src={items.imgUrl} className="avatar rounded-circle img-thumbnail mb-3" alt="avatar"/>
                 
-                {/* <form onSubmit={this.handleFileSubmit} encType="multipart/form-data" method="POST"> */}
                     <div className="custom-file">
                         <input 
                         type="file" 
@@ -197,7 +201,7 @@ render() {
                         onChange={this.handleFile}
                         className="custom-file-input" 
                         />
-                        <label className="custom-file-label" htmlFor="customFile"><i className="fas fa-file-upload"></i></label>
+                        <label className="custom-file-label" htmlFor="customFile">Change...<i className="fas fa-file-upload"></i></label>
                         <button 
                         type="submit" 
                         onClick={this.handleFileSubmit} 
