@@ -16,6 +16,7 @@ class ProfileCard extends Component {
             phone: '',
             website: '',
             username: '',
+            description: '',
             isLoaded: false
         };
         this.handleFileSubmit = this.handleFileSubmit.bind(this);
@@ -38,6 +39,7 @@ class ProfileCard extends Component {
                 website: json.website,
                 username: json.username,
                 imgUrl: json.imgUrl,
+                description: json.description,
             })
         }); 
     }
@@ -53,6 +55,8 @@ handleFile = event => {
 
 handleFileSubmit(e) {
     e.preventDefault();
+    // let user = jwt_decode(localStorage.getItem('jwtToken'));
+    // let id = user._id;
     const formData = new FormData();
     formData.append('file', this.state.file, this.state.file.name);
     console.log(formData)
@@ -65,6 +69,7 @@ handleFileSubmit(e) {
     };
     
     axios.post('http://localhost:4000/public/', formData, config)
+    // axios.post(`http://localhost:4000/api/avatar/${id}/upload`, formData, config)
     .then((response) => {
         alert('The file uploaded successfully')
     }).catch((error) => {
@@ -93,6 +98,7 @@ handleUpdateSubmit = (event) => {
         phone: this.state.phone,
         website: this.state.website,
         username: this.state.username,
+        description: this.state.description,
     }
     // const profileData = new FormData();
     console.log(userData);
@@ -110,6 +116,7 @@ handleUpdateSubmit = (event) => {
             phone: userData.phone,
             website: userData.website,
             username: userData.username,
+            description: userData.description,
         })
         console.log(res);
         alert('Great! You updated your profile');
@@ -299,6 +306,18 @@ render() {
                                       onChange={this.handleChange} 
                                       value={this.state.website} />
                                     </div>
+                                </div>
+                                <div className="form-group">
+                                <label htmlFor="comment">Description:<br/>
+                                {items.description}</label>
+                                <textarea 
+                                className="form-control" 
+                                rows="3" 
+                                name="description" 
+                                id="description" 
+                                onChange={this.handleChange} 
+                                value={this.state.description}>
+                                </textarea>
                                 </div>
                                 <div className="col-sm-12">
                                     <br />

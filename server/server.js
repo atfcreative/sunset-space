@@ -117,6 +117,7 @@ configureRoutes(app);
 // this is important because later we'll need to access file path
 const storage = multer.diskStorage({
     destination: './public/uploads',
+    // destination: '/api/avatar/:id/uploads',
     filename(req, file, cb) {
     //   cb(null, file.fieldname + '-' + Date().toLocaleString().slice(0,10) + path.extname(file.originalname));
     cb(null, file.filename + path.extname(file.originalname));
@@ -149,6 +150,7 @@ const storage = multer.diskStorage({
   
 //   express route where we receive files from the client
 //   passing multer middleware
+// app.post('/api/avatar/:id/upload', upload.single('file'), (req, res) => {
 app.post('/public', upload.single('file'), (req, res) => {
    const file = req.file; // file passed from client
    const meta = req.body; // all other values passed from the client, like name, etc..

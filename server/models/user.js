@@ -43,6 +43,10 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    description: {
+        type: String,
+        required: false
+    },
     imgUrl: 
     {
         type: String,

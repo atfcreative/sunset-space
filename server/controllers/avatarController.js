@@ -33,21 +33,22 @@ const show = (req, res) => {
 ///////////////////////////////////////////////////
 ///////create, POST///////////////////
 
-const create = (req, res) => {
+const upload = (req, res) => {
     upload(req, res, (err) => {
         if (err) {
             res.json({
                 error: err,
                 msg: 'There was an error uploading the avatar.'
             })
-        } else {
-            Avatar.findOneAndRemove({user: req.params.user_id}, (err, getAvatar) => {
-                if (err) {
-                    console.log(err);
-                    return;
-                }
-            })
-            console.log("REQ FILE", req.file); 
+        }
+         else {
+        //     Avatar.findOneAndRemove({user: req.params.user_id}, (err, getAvatar) => {
+        //         // if (err) {
+        //         //     console.log(err);
+        //         //     return;
+        //         // }
+        //     })
+            console.log("requested file here->", req.file); 
             // create new profile image
             let newAvatar = new db.Avatar({
                 user: req.params.user_id,
@@ -61,5 +62,5 @@ const create = (req, res) => {
 }
 
 module.exports = {
-    index, show, create,
+    index, show, upload,
 }
