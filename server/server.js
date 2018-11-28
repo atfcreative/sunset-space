@@ -99,7 +99,7 @@ const configureServer = app => {
     app.use(bodyParser.json());
 };
 
-const SERVER_CONFIGS = require('./constants/server');
+// const SERVER_CONFIGS = require('./constants/server');
 
 // const configureServer = require('./server');
 const configureRoutes = require('./routes');
@@ -130,15 +130,14 @@ const storage = multer.diskStorage({
       checkFileType(file, cb);
     }
   })
-//   .single('myImage');
-  
-  // Check File Type
+
+    // Check File Type
   function checkFileType(file, cb){
-    // Allowed ext
+    //Allowed ext
     const filetypes = /jpeg|jpg|png|gif/;
-    // Check ext
+    //Check ext
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    // Check mime
+    //Check mime
     const mimetype = filetypes.test(file.mimetype);
   
     if(mimetype && extname){
