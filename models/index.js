@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const port = 27017;
-const url = `mongodb://localhost:${port}/sunset`;
+const url = `process.env.MONGODB_URI || mongodb://localhost:${port}/sunset`;
 
 mongoose.connect(url, { useNewUrlParser: true })
 .then(() => console.log(`MongoDB connection working at port ${port}...`))
