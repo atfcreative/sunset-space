@@ -1,3 +1,5 @@
+// Use dotenv to read .env vars into Node
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
@@ -78,6 +80,9 @@ app.use(function (req, res, next) {
         next();
     }
 });
+
+//heroku
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 
 //====================================================
@@ -162,10 +167,14 @@ app.post('/public', upload.single('file'), (req, res) => {
 //====================================================
 ///////SANITY CHECK///////////////////////////////////
 //====================================================
-app.get('/', (req, res) => {
-    res.send('<h1>&#128372; Moonwalking Micheal Jackson style...</h1>');
-});
+// app.get('/', (req, res) => {
+//     res.send('<h1>&#128372; Moonwalking Micheal Jackson style...</h1>');
+// });
 
+//heroku
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 //====================================================
 ///////START SERVER///////////////////////////////////
