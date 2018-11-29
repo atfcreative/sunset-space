@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
+// import './LoginValid';
 
 class LogInForm extends Component {
     state = { username: '', password: '' }
@@ -55,11 +56,11 @@ class LogInForm extends Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="inputUsername">Username</label>
-                        <input type="text" className="form-control" id="inputusername" name="username" placeholder="Enter username" onChange={this.handleChange} value={this.state.username} required />
+                        <input type="text" className="form-control" id="usernameInput" name="username" placeholder="Enter username" onChange={this.handleChange} value={this.state.username} required />
                     </div>
                     <div className="form-group">
                         <label htmlFor="inputPassword">Password</label>
-                        <input type="password" className="form-control" id="inputuserpassword" name="password" placeholder="Enter password" onChange={this.handleChange} value={this.state.password} required />
+                        <input type="password" className="form-control" id="passwordInput" name="password" placeholder="Enter password" onChange={this.handleChange} value={this.state.password} required />
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                     <small className="m-2" ><Link to="/signin">Already a member?</Link></small>
