@@ -9,19 +9,18 @@ const uniqueValidator = require('mongoose-unique-validator');
 const UserSchema = new Schema({
     firstName: {
         type: String,
-        required: true
+        required: 'First Name is required.'
     },
     lastName: {
         type: String,
-        required: true
+        required: 'Last Name is required.'
     },
     email: {
         type: String,
         lowercase: true, 
-        unique: true,
-        // match: [/\S+@\S+\.\S+/, 'is invalid'],
-        index: true,
-        required: [true, "Can't be blank"],
+        unique: 'Email Already exists',
+        match: [/.+\@.+\..+/, 'is invalid'],
+        required: [true, "Email address is required"],
     },
     phone: {
         type: String,
@@ -47,11 +46,9 @@ const UserSchema = new Schema({
         type: String,
         required: false
     },
-    imgUrl: 
-    {
-        type: String,
-        required: false,
-        default: 'http://localhost:4000/uploads/default-avatar.jpg'
+    avatar: {
+        type: Schema.Types.ObjectId,
+        ref: "Avatar"
     },
     tour: [{
         type: Schema.Types.ObjectId,
@@ -61,13 +58,11 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Plan'
     }], 
-    created_at: 
-    {
+    created_at: {
         type: Date,
         default: Date.now
     },
-    updated_at: 
-    {
+    updated_at: {
         type: Date,
         default: Date.now
         // default: date => date.toLocaleDateString()

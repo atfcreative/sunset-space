@@ -10,4 +10,5 @@ module.exports = {
     Plan: require('./plan'),
     Tour: require('./tour'),
     User: require('./user'),
+    Avatar: require('./avatar'),
 }

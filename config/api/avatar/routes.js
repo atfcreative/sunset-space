@@ -9,10 +9,10 @@ router.get('/', ctrl.avatar.index);
 router.get('/:id', ctrl.avatar.show);
 
 //Avatar create route- create new user ===========
-router.post('/:_id/upload', ctrl.avatar.upload);
+// router.post('/:_id/upload', ctrl.avatar.create);
 
 //Avatar edit/update route ========================
-// router.put('/:id', ctrl.avatar.update);
+// router.put('/:id', ctrl.avatar.create);
 
 // //Avatar destroy route ============================
 // router.delete('/:id', ctrl.avatar.destroy);

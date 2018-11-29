@@ -6,7 +6,7 @@ const Avatar = db.Avatar;
 
 const index = (req, res) => {
     Avatar.find({})
-        .populate('user')
+        .populate('avatar')
         .exec((err, getAvatars) => {
             if (err) {
                 console.log(err)
@@ -32,35 +32,22 @@ const show = (req, res) => {
 
 ///////////////////////////////////////////////////
 ///////create, POST///////////////////
-
-const upload = (req, res) => {
-    upload(req, res, (err) => {
-        if (err) {
-            res.json({
-                error: err,
-                msg: 'There was an error uploading the avatar.'
-            })
-        }
-         else {
-        //     Avatar.findOneAndRemove({user: req.params.user_id}, (err, getAvatar) => {
-        //         // if (err) {
-        //         //     console.log(err);
-        //         //     return;
-        //         // }
-        //     })
-            console.log("requested file here->", req.file); 
-            // create new profile image
-            let newAvatar = new db.Avatar({
-                user: req.params.user_id,
-                name: req.file.filename,
-                mimetype: req.file.mimetype,
-            });
-            newAvatar.save();
-            res.json(newAvatar)
-        }
-    })
-}
+// const create = (req, res) => {
+//     upload(req, res, (err) => {
+//         if (err) throw err;
+//             console.log("requested file here->", req.file); 
+//             // create new profile image
+//             let newAvatar = new db.Avatar({
+//                 user: req.params.user_id,
+//                 name: req.file.filename,
+//                 mimetype: req.file.mimetype,
+//             });
+//             newAvatar.save();
+//             res.json(newAvatar)
+//         }
+//     })
+// }
 
 module.exports = {
-    index, show, upload,
+    index, show,
 }

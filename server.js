@@ -52,10 +52,12 @@ app.use('/api/tours', tourRouter);
 app.use('/api/plans', planRouter);
 app.use('/api/avatar', avatarRouter);
 
-// GET routes
-app.get('/avatar/:imagename', (req, res) => {
+// GET routes for user upload--->
+app.get('/uploads/:imagename', (req, res) => {
     res.sendFile('public/uploads/' + req.params.imagename, { root: __dirname });
 })
+
+// app.get('api/avatar/:user_id')
 app.get('/public', (req, res) => {
     console.log('working');
 });

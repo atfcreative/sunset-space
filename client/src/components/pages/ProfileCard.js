@@ -9,6 +9,9 @@ class ProfileCard extends Component {
         super();
         this.state = {
             items: [],
+            avatar: {
+                imgUrl: ''
+            },
             file: null,
             firstName: '',
             lastName: '',
@@ -26,146 +29,139 @@ class ProfileCard extends Component {
     componentDidMount() {
         let user = jwt_decode(localStorage.getItem('jwtToken'));
         let id = user._id;
+        // let avatar = db.Avatar;
+        // fetch('http://localhost:4000/uploads/')
+
         fetch('http://localhost:4000/api/users/' + id)
-        .then(res => res.json())
-        .then(json => {
-            this.setState({
-                isLoaded: true,
-                items: json,
-                firstName: json.firstName,
-                lastName: json.lastName,
-                email: json.email,
-                phone: json.phone,
-                website: json.website,
-                username: json.username,
-                imgUrl: json.imgUrl,
-                description: json.description,
-            })
-        }); 
+            .then(res => res.json())
+            .then(json => {
+                this.setState({
+                    isLoaded: true,
+                    items: json,
+                    firstName: json.firstName,
+                    lastName: json.lastName,
+                    email: json.email,
+                    phone: json.phone,
+                    website: json.website,
+                    username: json.username,
+                    avatar: json.avatar,
+                    description: json.description,
+                })
+            }); 
+        
     }
 
-///////////////////////////////////////////////////////////////////////
-//==== File upload logic
-///////////////////////////////////////////////////////////////////////
-handleFile = event => {
-    this.setState({
-        file: event.target.files[0]
-    });
-}
-
-handleFileSubmit(e) {
-    e.preventDefault();
-    // let user = jwt_decode(localStorage.getItem('jwtToken'));
-    // let id = user._id;
-    const formData = new FormData();
-    formData.append('file', this.state.file, this.state.file.name);
-    console.log(formData)
-    console.log(this.state.file)
-    console.log(this.state.file.name)
-    const config = {
-        headers: {
-            'content-type': 'multipart/form-data'
-        }
-    };
-    
-    axios.post('http://localhost:4000/public/', formData, config)
-    // axios.post(`http://localhost:4000/api/avatar/${id}/upload`, formData, config)
-    .then((response) => {
-        alert('The file uploaded successfully')
-    }).catch((error) => {
-        console.log('FLAILED')
-    });
-}
-
-
-///////////////////////////////////////////////////////////////////////
-//==== UPDATE PROFILE logic
-///////////////////////////////////////////////////////////////////////
-
-handleChange = (event) => {
-    this.setState({
-        [event.target.name]: event.target.value
-    });
-    console.log(this.state);
-}
-
-handleUpdateSubmit = (event) => {
-    event.preventDefault(); 
-    const userData = {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email,
-        phone: this.state.phone,
-        website: this.state.website,
-        username: this.state.username,
-        description: this.state.description,
-    }
-    // const profileData = new FormData();
-    console.log(userData);
-    // debugger;
-    // profileData.append('json', this.state.userData);
-    let user = jwt_decode(localStorage.getItem('jwtToken'));
-    let id = user._id;
-    axios.put('http://localhost:4000/api/users/' + id, userData)
-    .then(res => {
+    ///////////////////////////////////////////////////////////////////////
+    //==== File upload logic
+    ///////////////////////////////////////////////////////////////////////
+    handleFile = event => {
         this.setState({
-            items: userData,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            email: userData.email,
-            phone: userData.phone,
-            website: userData.website,
-            username: userData.username,
-            description: userData.description,
-        })
-        console.log(res);
-        alert('Great! You updated your profile');
-    })
-    .catch(err => {
-        alert(`Something happened Sis...`)
-        console.log(err)
-    });
-};
+            file: event.target.files[0]
+        });
+    }
 
+    handleFileSubmit(e) {
+        e.preventDefault();
 
-///////////////////////////////////////////////////////////////////////
-//==== LOGOUT profile logic
-///////////////////////////////////////////////////////////////////////
+        const formData = new FormData();
+        formData.append('file', this.state.file, this.state.file.name);
 
-handleLogout = () => {
-    // console.log(`someone clicked logout, what the...`)
-    if (localStorage.getItem('jwtToken') !== null ) {
-      localStorage.removeItem('jwtToken');
-      this.setState({ currentUser: null, isAuthenticated: false });
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+
+        axios.post('http://localhost:4000/public/', formData, config)
+            .then((response) => {
+                alert('The file uploaded successfully')
+            }).catch((error) => {
+                console.log('FLAILED')
+            });
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    //==== UPDATE PROFILE logic
+    ///////////////////////////////////////////////////////////////////////
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+        console.log(this.state);
+    }
+
+    handleUpdateSubmit = (event) => {
+        event.preventDefault(); 
+        const { firstName, lastName, email, phone, website, username, description } = this.state;
+
+        const userData = {
+            firstName,
+            lastName,
+            email,
+            phone,
+            website,
+            username,
+            description,
+        }
+
+        let user = jwt_decode(localStorage.getItem('jwtToken'));
+        let id = user._id;
+        axios.put('http://localhost:4000/api/users/' + id, userData)
+            .then(res => {
+                this.setState({
+                    items: userData,
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    email: userData.email,
+                    phone: userData.phone,
+                    website: userData.website,
+                    username: userData.username,
+                    description: userData.description,
+                })
+                console.log(res);
+                alert('Great! You updated your profile');
+            })
+            .catch(err => {
+                alert(`Something happened Sis...`)
+                console.log(err)
+            });
     };
-  };
+
+    ///////////////////////////////////////////////////////////////////////
+    //==== LOGOUT profile logic
+    ///////////////////////////////////////////////////////////////////////
+    handleLogout = () => {
+        if (localStorage.getItem('jwtToken') !== null ) {
+            localStorage.removeItem('jwtToken');
+            this.setState({ currentUser: null, isAuthenticated: false });
+        };
+    };
 
 
-///////////////////////////////////////////////////////////////////////
-//==== DELETE PROFILE logic
-///////////////////////////////////////////////////////////////////////
-
-handleDelete = (event) => {
+    ///////////////////////////////////////////////////////////////////////
+    //==== DELETE PROFILE logic
+    ///////////////////////////////////////////////////////////////////////
+    handleDelete = (event) => {
         event.preventDefault();
 
         let user = jwt_decode(localStorage.getItem('jwtToken'));
         let id = user._id;
 
-    axios.delete('http://localhost:4000/api/users/' + id)
-        .then(res => {
-            console.log(res);
-            alert('Boo! You deleted your profile');
-        })
-        .then(res => {
-            if (user._id === null ) {
-                this.setState({ currentUser: null, isAuthenticated: false })
-              }
-        })
-        .then(() => this.setState({ redirect: true }))
-        .catch(err => {
-            alert(`Brudda, no can delete...`)
-            console.log(err)
-        });
+        axios.delete('http://localhost:4000/api/users/' + id)
+            .then(res => {
+                console.log(res);
+                alert('Boo! You deleted your profile');
+            })
+            .then(res => {
+                if (user._id === null ) {
+                    this.setState({ currentUser: null, isAuthenticated: false })
+                }
+            })
+            .then(() => this.setState({ redirect: true }))
+            .catch(err => {
+                alert(`Brudda, no can delete...`)
+                console.log(err)
+            });
     };
 
 render() { 
@@ -175,6 +171,7 @@ render() {
     // const date2 = this.props.items.updated_at.toLocaleString().slice(0,10);
     // let createdTime = new Date().toLocaleString().slice(0,10); 
    
+    console.log(items)
 
     if (!isLoaded) {
         return <div>Loading...</div>
@@ -198,7 +195,7 @@ render() {
                 <div className="col-sm-3">
               
               <div className="text-center">
-                <img src={items.imgUrl} className="avatar rounded-circle img-thumbnail mb-3" alt="avatar"/>
+                <img src={items.avatar.imgUrl} className="avatar rounded-circle img-thumbnail mb-3" alt="avatar"/>
                 
                     <div className="custom-file">
                         <input 
@@ -214,7 +211,7 @@ render() {
                         onClick={this.handleFileSubmit} 
                         className="badge badge-sm">Upload</button>
                     </div>
-                {/* </form> */}
+                
 
                 <small className="text-muted">Member since: {items.created_at}</small><br/>
                 <small className="text-muted">Last updated: {items.updated_at}</small>

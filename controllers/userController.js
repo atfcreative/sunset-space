@@ -2,6 +2,7 @@ const db = require('../models');
 const express = require('express');
 const app = express();
 const User = db.User;
+const Avatar = db.Avatar;
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -22,10 +23,13 @@ const index = (req, res) => {
 
 const show = (req, res) => {
     const { id } = req.params;
-    User.findById(id, (err, user) => {
-        if(err) res.send({ err: true, message: `A user with ID:${id} does not exist.`});
-        res.json(user);
-    })
+    
+    User.findById(id)
+        .populate('avatar')
+        .exec((err, user) => {
+            if(err) res.send({ err: true, message: `A user with ID:${id} does not exist.`});
+            res.json(user);
+        })
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,28 +45,36 @@ const create = (req, res) => {
             bcrypt.hash(req.body.password, 10, (err, hash) => {
                 if (err) res.status(500).json({ error: err, message: `Cannot create user` });
 
-                const user = new User({
+                const avatar = new Avatar({
                     _id: new mongoose.Types.ObjectId(),
-                    firstName: req.body.firstName,
-                    lastName: req.body.lastName,
-                    username: req.body.username,
-                    password: hash,
-                    email: req.body.email,
-                    phone: req.body.phone,
-                    website: req.body.website,
-                    imgUrl: req.body.imgUrl,
-                    tour: [],
-                    plan: [],
                 });
 
-                user.save()
-                    .then(result => {
-                        // console.log(result);
-                        res.status(200).json({ success: `Successful new user guy...`});
+                avatar.save(function (err) {
+                    if (err) throw err;
+
+                    const user = new User({
+                        _id: new mongoose.Types.ObjectId(),
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        username: req.body.username,
+                        password: hash,
+                        email: req.body.email,
+                        phone: req.body.phone,
+                        website: req.body.website,
+                        avatar: avatar._id,
+                        tour: [],
+                        plan: [], 
                     })
-                    .catch(error => {
-                        res.status(500).json({ error: err });
-                }); 
+
+                    user.save()
+                        .then(result => {
+                            // console.log(result);
+                            res.status(200).json({ success: `Successful new user guy...`});
+                        })
+                        .catch(error => {
+                            res.status(500).json({ error: err });
+                    }); 
+                });
             });
         }
     });
