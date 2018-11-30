@@ -92,76 +92,80 @@ class ProfileCard extends Component {
 
     handleUpdateSubmit = (event) => {
         event.preventDefault(); 
-        const { firstName, lastName, email, phone, website, username, description } = this.state;
-
+        
         const userData = {
-            firstName,
-            lastName,
-            email,
-            phone,
-            website,
-            username,
-            description,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            phone: this.state.phone,
+            website: this.state.website,
+            username: this.state.username,
+            description: this.state.description,
+            avatar: this.state.avatar,
         }
 
         let user = jwt_decode(localStorage.getItem('jwtToken'));
         let id = user._id;
         axios.put('http://localhost:4000/api/users/' + id, userData)
-            .then(res => {
-                this.setState({
-                    items: userData,
-                    firstName: userData.firstName,
-                    lastName: userData.lastName,
-                    email: userData.email,
-                    phone: userData.phone,
-                    website: userData.website,
-                    username: userData.username,
-                    description: userData.description,
-                })
-                console.log(res);
-                alert('Great! You updated your profile');
+        .then(res => {
+            this.setState({
+                items: userData,
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                email: userData.email,
+                phone: userData.phone,
+                website: userData.website,
+                username: userData.username,
+                description: userData.description,
             })
-            .catch(err => {
-                alert(`Something happened Sis...`)
-                console.log(err)
-            });
-    };
-
-    ///////////////////////////////////////////////////////////////////////
-    //==== LOGOUT profile logic
-    ///////////////////////////////////////////////////////////////////////
-    handleLogout = () => {
-        if (localStorage.getItem('jwtToken') !== null ) {
-            localStorage.removeItem('jwtToken');
-            this.setState({ currentUser: null, isAuthenticated: false });
-        };
+            console.log(res);
+            alert('Great! You updated your profile');
+        })
+        .catch(err => {
+            alert(`Something happened Sis...`)
+            console.log(err)
+        });
     };
 
 
-    ///////////////////////////////////////////////////////////////////////
-    //==== DELETE PROFILE logic
-    ///////////////////////////////////////////////////////////////////////
-    handleDelete = (event) => {
+///////////////////////////////////////////////////////////////////////
+//==== LOGOUT profile logic
+///////////////////////////////////////////////////////////////////////
+
+handleLogout = () => {
+    // console.log(`someone clicked logout, what the...`)
+    if (localStorage.getItem('jwtToken') !== null ) {
+      localStorage.removeItem('jwtToken');
+      this.setState({ currentUser: null, isAuthenticated: false });
+    };
+  };
+
+
+///////////////////////////////////////////////////////////////////////
+//==== DELETE PROFILE logic
+///////////////////////////////////////////////////////////////////////
+
+handleDelete = (event) => {
         event.preventDefault();
 
         let user = jwt_decode(localStorage.getItem('jwtToken'));
         let id = user._id;
 
-        axios.delete('http://localhost:4000/api/users/' + id)
-            .then(res => {
-                console.log(res);
-                alert('Boo! You deleted your profile');
-            })
-            .then(res => {
-                if (user._id === null ) {
-                    this.setState({ currentUser: null, isAuthenticated: false })
-                }
-            })
-            .then(() => this.setState({ redirect: true }))
-            .catch(err => {
-                alert(`Brudda, no can delete...`)
-                console.log(err)
-            });
+    axios.delete('http://localhost:4000/api/users/' + id)
+        .then(res => {
+            console.log(res);
+            alert('Boo! You deleted your profile');
+        })
+        .then(res => {
+            if (user._id === null ) {
+                this.setState({ currentUser: null, isAuthenticated: false })
+              }
+        })
+        .then(() => this.setState({ redirect: true }))
+        .catch(err => {
+            alert(`Brudda, no can delete...`)
+            console.log(err)
+        });
     };
 
 render() { 
