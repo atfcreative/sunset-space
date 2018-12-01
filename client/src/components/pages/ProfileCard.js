@@ -27,6 +27,10 @@ class ProfileCard extends Component {
     }
 
     componentDidMount() {
+        this.fetchUser();
+    }
+
+    fetchUser = () => {
         let user = jwt_decode(localStorage.getItem('jwtToken'));
         let id = user._id;
         // let avatar = db.Avatar;
@@ -62,23 +66,43 @@ class ProfileCard extends Component {
 
     handleFileSubmit(e) {
         e.preventDefault();
-
+        const id = this.state.items.avatar._id;
+        console.log(id);
         const formData = new FormData();
         formData.append('file', this.state.file, this.state.file.name);
 
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };
+        // const config = {
+        //     headers: {
+        //         'content-type': 'multipart/form-data'
+        //     }
+        // };
 
-        axios.post('http://localhost:4000/public/', formData, config)
+        axios.post('http://localhost:4000/api/avatar/' + id, formData)
             .then((response) => {
-                alert('The file uploaded successfully')
+                alert('The file uploaded successfully');
+                this.fetchUser();
             }).catch((error) => {
                 console.log('FLAILED')
             });
-    }
+}
+
+    //     let id = this.state.items.avatar._id;
+        
+    //     axios.post('http://localhost:4000/api/avatar/' + id, formData, config)
+    //     .then(res => {
+    //         this.setState({
+    //             items: formData,
+    //             imgUrl: imgUrl
+    //         })
+    //         console.log(res);
+    //         alert('Choice! You updated your avatar.');
+    //     })
+    //     .catch(err => {
+    //         alert(`Something happened Sis...`)
+    //         console.log(err)
+    //     });
+    // }
+    
 
     ///////////////////////////////////////////////////////////////////////
     //==== UPDATE PROFILE logic
@@ -175,7 +199,7 @@ render() {
     // const date2 = this.props.items.updated_at.toLocaleString().slice(0,10);
     // let createdTime = new Date().toLocaleString().slice(0,10); 
    
-    console.log(items)
+    // console.log(items)
 
     if (!isLoaded) {
         return <div>Loading...</div>
@@ -230,7 +254,7 @@ render() {
                   <div className="tab-content">
                     <div className="tab-pane active" id="home">
                         <hr/>
-                            <form onSubmit={this.handleUpdateSubmit} method="POST">
+                            <form onSubmit={this.handleUpdateSubmit} method="POST" encType="multipart/form-data">
                               
                                 <div className="row">
                                     <div className="col-sm mb-4">
