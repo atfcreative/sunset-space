@@ -50,13 +50,15 @@ class ProfileCard extends Component {
                     username: json.username,
                     avatar: json.avatar,
                     description: json.description,
+                    created_at: json.created_at,
+                    updated_at: json.updated_at
+
                 })
             }); 
-        
-    }
+        }
 
     ///////////////////////////////////////////////////////////////////////
-    //==== File upload logic
+    //==== File upload logic ****MAGIC****
     ///////////////////////////////////////////////////////////////////////
     handleFile = event => {
         this.setState({
@@ -71,38 +73,15 @@ class ProfileCard extends Component {
         const formData = new FormData();
         formData.append('file', this.state.file, this.state.file.name);
 
-        // const config = {
-        //     headers: {
-        //         'content-type': 'multipart/form-data'
-        //     }
-        // };
-
         axios.post('http://localhost:4000/api/avatar/' + id, formData)
             .then((response) => {
                 alert('The file uploaded successfully');
                 this.fetchUser();
             }).catch((error) => {
                 console.log('FLAILED')
-            });
-}
+        });
+    }
 
-    //     let id = this.state.items.avatar._id;
-        
-    //     axios.post('http://localhost:4000/api/avatar/' + id, formData, config)
-    //     .then(res => {
-    //         this.setState({
-    //             items: formData,
-    //             imgUrl: imgUrl
-    //         })
-    //         console.log(res);
-    //         alert('Choice! You updated your avatar.');
-    //     })
-    //     .catch(err => {
-    //         alert(`Something happened Sis...`)
-    //         console.log(err)
-    //     });
-    // }
-    
 
     ///////////////////////////////////////////////////////////////////////
     //==== UPDATE PROFILE logic

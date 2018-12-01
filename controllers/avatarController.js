@@ -1,8 +1,8 @@
 const db = require('../models');
 const Avatar = db.Avatar;
-const multer = require('multer');
-const express = require('express');
-const app = express();
+// const multer = require('multer');
+// const express = require('express');
+// const app = express();
 
 ///////////////////////////////////////////////////
 ///////INDEX- get /api/avatars////////////////////////////

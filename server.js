@@ -50,7 +50,7 @@ const avatarRouter = require('./config/api/avatar/routes');
 app.use('/api/users', userRouter);
 app.use('/api/tours', tourRouter);
 app.use('/api/plans', planRouter);
-app.use('/api/avatar', avatarRouter);
+// app.use('/api/avatar', avatarRouter);
 
 // GET routes for user upload--->
 app.get('/uploads/:imagename', (req, res) => {
@@ -120,56 +120,6 @@ configureRoutes(app);
 
 // module.exports = configureServer;
 
-//====================================================
-/////// MULTER -- USER Avatar uploads ////////////////
-//====================================================
-
-// configuring Multer to use files directory for storing files
-// this is important because later we'll need to access file path
-// const storage = multer.diskStorage({
-//     destination: './public/uploads',
-//     // destination: '/api/avatar/:id/uploads',
-//     filename(req, file, cb) {
-//     //   cb(null, file.fieldname + '-' + Date().toLocaleString().slice(0,10) + path.extname(file.originalname));
-//     cb(null, file.filename + path.extname(file.originalname));
-//     },
-//   });
-  
-//   const upload = multer({ 
-//     storage: storage,
-//     limits:{fileSize: 1000000},
-//     fileFilter: function(req, file, cb){
-//       checkFileType(file, cb);
-//     }
-//   })
-
-//     // Check File Type
-//   function checkFileType(file, cb){
-//     //Allowed ext
-//     const filetypes = /jpeg|jpg|png|gif/;
-//     //Check ext
-//     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-//     //Check mime
-//     const mimetype = filetypes.test(file.mimetype);
-  
-//     if(mimetype && extname){
-//       return cb(null,true);
-//     } else {
-//       cb('Error: Images Only!');
-//     }
-//   }
-  
-// //   express route where we receive files from the client
-// //   passing multer middleware
-// // app.post('/api/avatar/:id/upload', upload.single('file'), (req, res) => {
-// app.post('/public', upload.single('file'), (req, res) => {
-//    const file = req.file; // file passed from client
-//    const meta = req.body; // all other values passed from the client, like name, etc..
-//    console.log(file, 'success!')
-
-//    res.end();
-//   })
-
 
 //====================================================
 ///////MULTER 2///////////////////////////////////
@@ -217,7 +167,7 @@ app.post('/api/avatar/:avatar_id', upload.single('file'), (req, res) => {
 //    find the avatar imgUrl and update the image
     let update = {imgUrl: `/uploads/${req.file.filename}`};
     db.Avatar.findByIdAndUpdate(id, update, {new: true}, (err, updated) => {
-        console.log(file, 'success!')
+        
         res.json(updated);
     });
     
