@@ -325,7 +325,7 @@ render() {
                                 </div>
                                 <div className="col-sm-12">
                                     <br />
-                                    <button className="btn btn-lg btn-success btn-block" type="submit">Save and Update</button>
+                                    <button className="button fit special" type="submit">Save and Update</button>
                                 </div>
                             </form>
                             <br/>
@@ -336,20 +336,35 @@ render() {
                              <h4 className="mt-5">Reset Password</h4>
                             
                                 <div className="row">
-                                    <div className="col-sm">
-                                        <label htmlFor="password"><h6>New Password</h6></label>
-                                        <input type="password" className="form-control" name="password" id="password" placeholder="password" onChange={this.handleChange} value={this.state.password} />
+                                        <div className="col-sm mb-4">
+                                        {/* <label htmlFor="email"><h6>Password: {items.email}</h6></label> */}
+                                        <input 
+                                        type="password" 
+                                        className="form-control" 
+                                        name="password" 
+                                        id="password" 
+                                        placeholder="Reset Password" 
+                                        // onChange={this.handleChange} 
+                                        // value={this.state.email} 
+                                        />
+                                        </div>
+
+                                        <div className="col-sm mb-4">
+                                        {/* <label htmlFor="website"><h6>Confirm Password: {items.website}</h6></label> */}
+                                        <input 
+                                        type="text" 
+                                        className="form-control" 
+                                        name="password2" 
+                                        id="password2" 
+                                        placeholder="Confirm password" 
+                                        // onChange={this.handleChange} 
+                                        // value={this.state.website}
+                                        />
+                                        </div>
                                     </div>
-                              
-                              
-                                    <div className="col-sm">
-                                    <label htmlFor="password2"><h6>Confirm New Password</h6></label><br/>
-                                        <input type="password" className="form-control" name="password2" id="password2" placeholder="password2" onChange={this.handleChange} value={this.state.password} />
-                                    </div>
-                                </div>
                                 </div>
                                 <div className="col-sm-12">
-                                    <button className="btn btn-lg btn-success mt-3" type="submit" onClick={this.handleUpdate}>Save and Update</button>
+                                    <button className="button fit special mt-3" type="submit" onClick={this.handleUpdate}>Save and Update</button>
                                 </div>
 
                                 <hr/>

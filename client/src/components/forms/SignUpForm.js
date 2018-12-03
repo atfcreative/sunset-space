@@ -45,7 +45,7 @@ class SignUpForm extends Component {
                   <div className="row">
                     <div className="col text-center">
                       <h1>Register</h1>
-                      <p className="text-h3">It's <strong>FREE</strong> and Easy!</p>
+                      <p className="text-h3"><strong>FREE</strong> and Easy!</p>
                       <p className="text-muted">Per our privacy policy, we will never share personal information <Link to="/">learn more</Link></p>
                     </div>
                   </div>

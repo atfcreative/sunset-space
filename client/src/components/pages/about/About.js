@@ -3,6 +3,7 @@ import img1 from './images/slide1.jpg';
 import img2 from './images/slide2.jpg';
 import img3 from './images/slide3.jpg';
 import AboutDetails from './aboutDetails/AboutDetails';
+import SectionFour from '../landing/sectionFour/SectionFour';
 
 class About extends Component {
     render() { 
@@ -18,7 +19,7 @@ class About extends Component {
                     <div className="carousel-caption text-left">
                       <h1>Creativity meets Productivity...</h1>
                       <p>The space is well lit with a modern city design motif.</p>
-                      <p className="button fit special" role="button">Learn More!</p>
+                      <p className="button special" role="button">Learn More!</p>
                     </div>
                   </div>
                 </div>
@@ -28,7 +29,7 @@ class About extends Component {
                     <div className="carousel-caption text-left">
                       <h1>We like to think like bad cliches.</h1>
                       <p>"You're only as strong as the drinks you mix, the tables you dance on, and the friends you party with."</p>
-                      <p className="button fit special" role="button">Learn more!</p>
+                      <p className="button special" role="button">Learn more!</p>
                     </div>
                   </div>
                 </div>
@@ -38,7 +39,7 @@ class About extends Component {
                     <div className="carousel-caption text-left">
                       <h1>“Every cloud has a silver lining.”</h1>
                       <p>Okay, now thats two too many bad cliches for one carousel! Enjoy and be safe.</p> 
-                      <p className="button fit special" role="button">Learn more!</p>
+                      <p className="button special" role="button">Learn more!</p>
                     </div>
                   </div>
                 </div>
@@ -53,6 +54,7 @@ class About extends Component {
               </p>
             </div>
           <AboutDetails />
+          <SectionFour />
           </div>
 
            

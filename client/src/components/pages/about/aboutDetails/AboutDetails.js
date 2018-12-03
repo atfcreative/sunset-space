@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import pic3 from './pic03.jpg';
 import pic4 from './pic04.jpg';
 
@@ -7,7 +7,7 @@ class AboutDetails extends Component {
     
     render() { 
         return (
-            <section id="one" className="wrapper style2 special">
+            <section id="one" className="wrapper style5 special alt">
                 <div className="inner">
                     <header className="major">
                         <h3>MEET THE TEAM</h3>

@@ -1841,6 +1841,18 @@
 				background-color: #5eadbb;
 			}
 
+			.buttonClear {
+				background-color: none;
+				border: none;
+				text-decoration: none;
+			}
+
+			button.stripe-button-el,
+			button.stripe-button-el>span {
+			background-color: #00cccc !important;
+			background-image: none;
+			}	
+
 /* Form */
 
 	form {

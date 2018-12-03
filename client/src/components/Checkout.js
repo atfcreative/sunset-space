@@ -30,7 +30,7 @@ const onToken = (amount, description) => token =>
         })
         .then(successPayment)
         .catch(errorPayment);
-        console.log(PAYMENT_SERVER_URL);
+        // console.log(PAYMENT_SERVER_URL);
         // debugger;
 
 const Checkout = ({ name, description, amount }) =>
