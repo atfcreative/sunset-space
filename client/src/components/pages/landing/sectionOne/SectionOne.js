@@ -11,21 +11,21 @@ class SectionOne extends Component {
                 <div className="inner">
                     <header className="major">
                         <h3>Ocean Beach, San Francisco</h3>
-                        <p>Convenient, freindly, positive vibed work and event space in the outer sunset.</p>
+                        <p>Convenient, friendly, positive-vibed work and event space in the outer sunset.</p>
                     </header>
                 <section className="spotlights">
                     <section>
                         <span className="image"><img src={pic1} alt="" /></span>
-                        <h4>Puppy Dogs</h4>
-                        <p>These are the cutest little things arent they? Look at those eyes! Watch out though until you can get them trained, they'll pee all over the back seat of the car.</p>
+                        <h4>Work From Home, WITH US!</h4>
+                        <p>Work remotely from a positively-vibed coworking space with other locals committed to bettering the community. Situated close to the beach for a lunchtime surf or coastal jog. </p>
                         <ul className="actions">
                             <li><Link to="#" className="button">Learn More</Link></li>
                         </ul>
                     </section>
                     <section>
                         <span className="image"><img src={pic2} alt="" /></span>
-                        <h4>Kitty Kats!</h4>
-                        <p>Who cant resist a fluffy little kitty kat? Nothing cuter in the whole wide world!!! Dont forget to clean the litter box! HEHEHE Watch out for the claws on the new leather couch.</p>
+                        <h4>Evening Community Events</h4>
+                        <p>Join us or host an evening community or coworking event, such as Surfrider meetings, holiday wreath-making class, or DIY workshops designed to reduce plastic waste.</p>
                         <ul className="actions">
                             <li><Link to="#" className="button">Learn More</Link></li>
                         </ul>

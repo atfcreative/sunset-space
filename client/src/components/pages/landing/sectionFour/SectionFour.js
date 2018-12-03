@@ -8,9 +8,9 @@ class SectionFour extends Component {
                 <div className="inner split">
                     <section>
                         <header className="major">
-                        <h2>Amet lorem</h2>
+                        <h2>Contact Us</h2>
                         </header>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla imperdiet, lorem in pretium aliquet, lacus dui tristique lacus, vel convallis justo lectus in augue. Tempus pellentesque iaculis imperdiet et elementum lorem sed ipsum dolor sit amet, consectetur adipiscing elit. Nulla imperdiet, lorem pretium aliquet lacus.</p>
+                        <p>Reach out, we're more than happy to answer any question you may have about Sunset Space.</p>
                     </section>
                     <form method="post" action="#">
                         <label htmlFor="name">Name</label>
@@ -18,7 +18,7 @@ class SectionFour extends Component {
                         <label htmlFor="email">Email</label>
                         <input type="email" id="email" name="email" />
                         <ul className="actions">
-                        <li><Link to="#" className="button">Get started</Link></li>
+                        <li><Link to="#" className="button">Send Message</Link></li>
                         </ul>
                     </form>
                 </div>

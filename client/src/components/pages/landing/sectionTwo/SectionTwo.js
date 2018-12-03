@@ -10,19 +10,20 @@ class SectionTwo extends Component {
                 <div className="inner">
                     <header className="major">
                         <h2>Our Services</h2>
-                        <p>We offer a lifestyle inspired work environment, creating a collaborative space in the Outer Sunset of San Francisco. <span>Join</span> a community of businesses and individuals focused on creating solutions <em>for a better tomorrow.</em></p>
+                        <p>We offer a lifestyle inspired work environment...</p>
                     </header>
+                    <hr />
                 <section className="split">
                     <article>
-                        <h4>Features:</h4>
-                        <p>Printers, 3 private offices, Andytown coffee available, Coffee and restaurants on same block, Surf lockers,Bike racks, Hot outdoor showers, Telephone booths for privacy, Lounge area</p>
+                        <h4>Amenities</h4>
+                        <p>Printers, 3 private offices, Andytown coffee available, coffee and restaurants on same block, surf lockers, bike racks, Hot outdoor showers, telephone booths for privacy, lounge area.</p>
                         <ul className="actions">
                             <li><Link to="#" className="button">Learn More</Link></li>
                         </ul>
                         </article>
                         <article>
-                        <h4>Events:</h4>
-                        <p>Sunset Space x Surfrider holiday fundraising party. DIY workshops - creating household items in bulk to eliminate single use plastics (toothpaste, shampoo, soap, sunscreen). Wine and wreath-making night</p>
+                        <h4>Events Space</h4>
+                        <p>Fundraisers, kickstarter launches, non-profit meet-ups. DIY workshops - creating household items in bulk help eliminate single use plastics. Art classes, Wine and painting night.</p>
                         <ul className="actions">
                             <li><Link to="#" className="button">Learn More</Link></li>
                         </ul>

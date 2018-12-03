@@ -46,7 +46,7 @@ class SignUpForm extends Component {
                     <div className="col text-center">
                       <h1>Register</h1>
                       <p className="text-h3">It's <strong>FREE</strong> and Easy!</p>
-                      <small className="text-muted">Per our privacy policy, we will never share personal information <Link to="/">learn more</Link></small>
+                      <p className="text-muted">Per our privacy policy, we will never share personal information <Link to="/">learn more</Link></p>
                     </div>
                   </div>
                   <div className="row align-items-center mt-4">
@@ -80,11 +80,11 @@ class SignUpForm extends Component {
                       <div className="form-check">
                         <label className="form-check-label">
                           <input type="checkbox" className="form-check-input" />
-                          I Read and Accept <Link to="/">Terms and Conditions</Link>
+                          <small className="text-muted">I Read and Accept <Link to="/">Terms and Conditions</Link></small>
                         </label>
                       </div>
         
-                      <button className="btn btn-primary mt-4">Submit</button>
+                      <button className="button fit special mt-5">Submit</button>
                     </div>
                   </div>
                 </div>

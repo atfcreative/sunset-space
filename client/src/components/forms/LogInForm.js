@@ -99,8 +99,7 @@ class LogInForm extends Component {
                     <div className="col text-center">
                       <h1>Login</h1>
                       <p className="text-h3"><strong>Welcome back,</strong> Glad to see you again!</p>
-                      <small className="text-muted">Per our privacy policy, we will never share personal information <Link to="/">learn more</Link></small>
-                    </div>
+                     </div>
                     <div className="form-group">
                         <label htmlFor="inputUsername">Username</label>
                         <input type="text" className="form-control" id="usernameInput" name="username" placeholder="Enter username" onChange={this.handleChange} value={this.state.username} />
@@ -116,10 +115,11 @@ class LogInForm extends Component {
                         {this.state.passwordError}
                         {this.state.passwordError2}
                     </div>
+                        <p className="text-muted">Per our privacy policy, we will never share personal information. <Link to="/">Learn more...</Link></p>
                     </div>
                     
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                    <small className="m-2" ><Link to="/signin">Already a member?</Link></small>
+                    <button type="submit" className="button fit special">Submit</button>
+                    <h6 className="m-2 text-muted"><Link to="/register">Not a member? Join here!</Link></h6>
                 </form>
               </div>
             </div>

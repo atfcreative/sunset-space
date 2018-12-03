@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import img1 from './images/1.jpg';
-import img2 from './images/2.jpg';
-import img3 from './images/3.jpg';
+import img1 from './images/slide1.jpg';
+import img2 from './images/slide2.jpg';
+import img3 from './images/slide3.jpg';
 
 class About extends Component {
     render() { 
