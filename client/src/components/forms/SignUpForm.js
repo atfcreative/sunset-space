@@ -28,7 +28,7 @@ class SignUpForm extends Component {
           username: this.state.username,
           password: this.state.password,
         }
-        axios.post(process.env.NODE_ENV = 'production' ? process.env.MONGODB_URI : 'http://localhost:4000/api/users/register', newUser)
+        axios.post(process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'http://localhost:4000/api/users/register', newUser)
           .then(res => {
             this.props.history.push('/signin')
           })
