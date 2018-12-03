@@ -54,7 +54,7 @@ class SignUpForm extends Component {
                       <input type="text" className="form-control" id="inputFirstname" placeholder="First Name" name="firstName" onInput={this.handleChange} required />
                     </div>
                     <div className="col">
-                      <input type="lastName" className="form-control" id="inputLastname" name="lastName" placeholder="lastName" onInput={this.handleChange} required />
+                      <input type="text" className="form-control" id="inputLastname" name="lastName" placeholder="Last Name" onInput={this.handleChange} required />
                     </div>
                   </div>
                   <div className="row align-items-center mt-4">

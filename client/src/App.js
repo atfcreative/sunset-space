@@ -8,7 +8,9 @@ import ProfilePage from './components/pages/ProfilePage';
 import UsersList from './components/pages/UsersList';
 import About from './components/pages/About';
 import Plans from './components/pages/Plans';
-import Landing from './components/pages/Landing';
+import Landing from './components/pages/landing/Landing';
+import Footer from './components/footer/Footer';
+import './App.css';
 
 class App extends Component {
   state = {
@@ -76,6 +78,7 @@ handleLogout = () => {
           <Route exact path='/about' component={About} />
           <Route exact path='/plans' component={Plans} />
         </Switch>
+        <Footer />
       </div>
     );
   }

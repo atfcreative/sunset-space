@@ -1,12 +1,12 @@
-@import url(./assets/css/font-awesome.min.css);
-/* @font-face {
+@import url(font-awesome.min.css);
+@font-face {
     font-family: 'above_demoregular';
-    src: url('./assets/fonts/above.woff2') format('woff2'),
-         url('./assets/fonts/above.woff') format('woff');
+    src: url('../fonts/above.woff2') format('woff2'),
+         url('../fonts/above.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
-} */
+}
 
 /* Reset */
 
@@ -1410,8 +1410,7 @@
 
 	body {
 		background-attachment: fixed, fixed;
-    /* background-image: url("./images/angular-lines-up.svg"), url("../../images/bg.jpg"); */
-    background-image: url("./assets/css/images/angular-lines-up.svg"), url("./images/bg.jpg");;
+		background-image: url("images/angular-lines-up.svg"), url("../../images/bg.jpg");
 		background-position: center -315px, center top;
 		background-repeat: no-repeat;
 		background-size: auto, cover;
@@ -1419,8 +1418,7 @@
 
 		body.landing {
 			background-attachment: scroll, scroll, fixed;
-      background-image: url("./assets/css/images/angular-lines-up.svg"), url("./assets/css/images/angular-lines-down.svg"), url("./images/bg.jpg");
-      /* background-image: url("images/angular-lines-up.svg"), url("images/angular-lines-down.svg"), url("../../images/bg.jpg"); */
+			background-image: url("images/angular-lines-up.svg"), url("images/angular-lines-down.svg"), url("../../images/bg.jpg");
 			background-position: center top, center bottom, center top;
 			background-size: auto, auto, cover;
 		}
@@ -1442,7 +1440,7 @@
 				background-attachment: scroll !important;
 			}
 
-    }
+		}
 
 /* Type */
 
@@ -2538,7 +2536,7 @@
 	}
 
 	header.style1, header.style2, header.Ï, header.style4 {
-		background-image: url("./assets/css/images/overlay.png"), url("./assets/css/images/checker-pattern.svg");
+		background-image: url("images/overlay.png"), url("images/checker-pattern.svg");
 		background-position: center top;
 		background-repeat: repeat;
 	}
@@ -3766,7 +3764,7 @@ svg {
 				}
 
 		.wrapper.style2, .wrapper.Ï, .wrapper.style4 {
-			background-image: url("./assets/css/images/overlay.png"), url("./assets/css/images/checker-pattern.svg");
+			background-image: url("images/overlay.png"), url("images/checker-pattern.svg");
 			background-position: center top;
 			background-repeat: repeat, repeat;
 		}
