@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const port = 27017;
-const url = `process.env.MONGODB_URI || mongodb://localhost:${port}/sunset`;
+const localUrl = `mongodb://localhost:${port}/sunset`;
 
-mongoose.connect(url, { useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB_URI || localUrl, { useNewUrlParser: true })
 .then(() => console.log(`MongoDB connection working at port ${port}...`))
 .catch(err => console.log(err));
 
