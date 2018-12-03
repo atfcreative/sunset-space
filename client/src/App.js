@@ -6,7 +6,7 @@ import LoginForm from './components/forms/LogInForm';
 import SignUpForm from './components/forms/SignUpForm';
 import ProfilePage from './components/pages/ProfilePage';
 import UsersList from './components/pages/UsersList';
-import About from './components/pages/About';
+import About from './components/pages/about/About';
 import Plans from './components/pages/Plans';
 import Landing from './components/pages/landing/Landing';
 import Footer from './components/footer/Footer';
