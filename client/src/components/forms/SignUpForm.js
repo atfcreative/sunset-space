@@ -28,11 +28,11 @@ class SignUpForm extends Component {
           username: this.state.username,
           password: this.state.password,
         }
-        axios.post('http://localhost:4000/api/users/register', newUser)
-        .then(res => {
-          this.props.history.push('/signin')
-        })
-        .catch(err => console.log(err.response));
+        axios.post(process.env.MONGODB_URI || 'http://localhost:4000/api/users/register', newUser)
+          .then(res => {
+            this.props.history.push('/signin')
+          })
+          .catch(err => console.log(err.response));
       }
     }
 
